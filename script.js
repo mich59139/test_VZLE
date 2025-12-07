@@ -3,12 +3,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // ----------------------------------------------------
     // 1. Initialisation des éléments du DOM
     // ----------------------------------------------------
-    const cardsContainer = document.getElementById('cards-container');
-    const filterStatut = document.getElementById('filter-statut');
-    const filterTheme = document.getElementById('filter-theme');
-    const filterAnnee = document.getElementById('filter-annee');
-    const compteurElement = document.getElementById('compteur');
-    const montantTotalElement = document.getElementById('montant-total');
+    const cardsContainer = document.getElementById('results-container'); // ⬅️ CORRIGÉ
+    const filterStatut = document.getElementById('status-navigation');  // ⬅️ CORRIGÉ (utiliserons les boutons)
+    const filterTheme = document.getElementById('theme-filter');        // ⬅️ CORRIGÉ
+    const filterAnnee = document.getElementById('annee-filter');        // ⬅️ CORRIGÉ
+    const compteurElement = document.getElementById('counts');          // ⬅️ CORRIGÉ (nous allons y injecter les compteurs)
+    const montantTotalElement = document.getElementById('counts');      // ⬅️ CORRIGÉ (nous allons y injecter les compteurs)
     
     // Déclaration de vizilleData pour être sûr qu'elle existe (elle est chargée via data.js)
     if (typeof vizilleData === 'undefined') {
