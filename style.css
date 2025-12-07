@@ -5,13 +5,11 @@ body {
     background-color: #e9ecef;
     color: #333;
     
-    /* Le blason de Vizille, en filigrane (Nécessite le fichier blason-vizille.png dans le même dossier) */
+    /* Le blason de Vizille (pour information seulement, pas nécessaire pour le texte) */
     background-image: url('blason-vizille.png');
     background-repeat: no-repeat;
     background-position: top 50px right 20px;
     background-size: 200px;
-    
-    /* OPACITÉ DU BLASON : Très faible (8%) pour ne pas nuire au texte */
     opacity: 0.08; 
     
     background-attachment: fixed;
@@ -21,7 +19,7 @@ body {
     max-width: 1400px;
     margin: 0 auto;
     
-    /* FOND DU CONTENEUR : Blanc entièrement opaque pour une LISIBILITÉ PARFAITE */
+    /* FOND BLANC ENTIÈREMENT OPAQUE (Lisibilité garantie) */
     background-color: #ffffff; 
     
     padding: 20px;
