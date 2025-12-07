@@ -2,14 +2,14 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #e9ecef; /* Couleur de fond général (simule un fond de carte clair) */
+    background-color: #e9ecef;
     color: #333;
 }
 
 #dashboard-container {
     max-width: 1400px;
     margin: 0 auto;
-    background-color: rgba(255, 255, 255, 0.95); /* Fond blanc semi-transparent pour lire le texte */
+    background-color: rgba(255, 255, 255, 0.95);
     padding: 20px;
     min-height: 100vh;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
@@ -28,8 +28,45 @@ header h1 {
     font-weight: 900;
 }
 
-/* --- Filtres et Compteur --- */
-#filters {
+/* --- NOUVEAU : Navigation par Statut (Boutons) --- */
+#status-navigation {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    padding: 15px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+}
+
+.status-btn {
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+    white-space: nowrap; /* Empêche la rupture du texte sur le bouton */
+}
+
+.status-btn:hover {
+    background-color: #e0e0e0;
+}
+
+.active-status-btn {
+    background-color: #004d99;
+    color: white;
+    border-color: #004d99;
+}
+
+.active-status-btn:hover {
+    background-color: #003a7a;
+}
+
+/* --- Filtres Secondaires et Compteur --- */
+#secondary-filters {
     display: flex;
     justify-content: center;
     gap: 15px;
@@ -37,7 +74,7 @@ header h1 {
     flex-wrap: wrap;
 }
 
-#filters select {
+#secondary-filters select {
     padding: 10px 15px;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -46,7 +83,7 @@ header h1 {
 
 #counts {
     padding: 10px 20px;
-    background-color: #d90000; /* Rouge Vizille */
+    background-color: #d90000;
     color: white;
     border-radius: 5px;
     font-weight: bold;
@@ -68,7 +105,7 @@ header h1 {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    border-left: 5px solid; /* La couleur dépendra du statut */
+    border-left: 5px solid;
 }
 
 .project-card h3 {
@@ -94,6 +131,6 @@ header h1 {
 }
 
 /* Styles des bordures par Statut */
-.status-Achevé { border-left-color: #009933; } /* Vert pour les réalisations */
-.status-En-cours { border-left-color: #ff9900; } /* Orange pour les chantiers */
-.status-Prévu { border-left-color: #004d99; } /* Bleu pour la planification */
+.status-Achevé { border-left-color: #009933; } /* Vert pour les réalisations terminées */
+.status-En-cours { border-left-color: #ff9900; } /* Orange pour les chantiers en cours */
+.status-Prévu { border-left-color: #004d99; } /* Bleu pour les projets à venir */
