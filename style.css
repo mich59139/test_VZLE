@@ -1,37 +1,104 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-}
-
-h1 {
-    color: #004d99; /* Couleur du mouvement Vizille */
-}
-
-/* ATTENTION : Il est crucial de définir une hauteur (height)
-   pour l'élément #map, sinon elle ne s'affichera pas !
-*/
-#map {
-    height: 600px; /* Taille de la carte sur l'écran */
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.popup-content h3 {
-    margin-top: 0;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* Fond très clair */
     color: #333;
 }
 
-/* Styles optionnels pour les statuts (Achevé/En cours) */
-.status-acheve {
-    color: green;
-    font-weight: bold;
+header {
+    background-color: #004d99; /* Bleu principal Vizille */
+    color: white;
+    padding: 40px 20px;
+    text-align: center;
 }
-.status-en-cours {
-    color: orange;
-    font-weight: bold;
+
+header h1 {
+    margin-top: 0;
+    font-size: 2.5em;
+    font-weight: 900;
 }
-.status-prévu {
+
+.bilan-section {
+    padding: 40px 20px;
+    max-width: 1300px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.bilan-section h2 {
     color: #004d99;
+    border-bottom: 3px solid #004d99;
+    display: inline-block;
+    padding-bottom: 5px;
+    margin-bottom: 30px;
+    font-size: 1.8em;
+}
+
+.card-container {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+}
+
+.bilan-card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-align: left;
+    border-left: 5px solid #004d99; /* Bande latérale thématique */
+}
+
+.bilan-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
+}
+
+.bilan-card h3 {
+    color: #004d99;
+    margin-top: 0;
+    font-size: 1.3em;
+}
+
+.bilan-card p {
+    font-size: 1em;
+    line-height: 1.4;
+    color: #555;
+    min-height: 70px; /* Assure une hauteur minimale pour la cohérence */
+}
+
+.bilan-card .value {
+    display: block;
+    font-size: 1.8em;
+    font-weight: 900;
+    color: #d90000; /* Rouge vif pour le montant */
+    margin: 10px 0;
+}
+
+/* Statuts et détails */
+.detail {
+    display: block;
+    font-size: 0.9em;
     font-weight: bold;
+    padding-top: 10px;
+    border-top: 1px dashed #eee;
+}
+.status-acheve { 
+    color: #009933; /* Vert foncé pour succès */
+    border-left-color: #009933;
+}
+.status-en-cours { 
+    color: #ff9900; /* Orange pour en cours */
+    border-left-color: #ff9900;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 40px;
 }
