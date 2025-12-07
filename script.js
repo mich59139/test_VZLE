@@ -1,4 +1,4 @@
-// script.js : Gère l'affichage dynamique et le filtrage
+// script.js : Gère l'affichage dynamique, le filtrage ET L'ANIMATION
 
 document.addEventListener('DOMContentLoaded', () => {
     // Le tableau vizilleData est défini dans data.js
@@ -13,28 +13,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const countsElement = document.getElementById('counts');
     const statusButtons = document.querySelectorAll('#status-navigation .status-btn');
 
-    let currentStatusFilter = 'all'; // Variable globale pour le filtre de statut
+    let currentStatusFilter = 'all'; 
 
     // --- LOGIQUE DE FILTRAGE PAR STATUT (BOUTONS) ---
     statusButtons.forEach(button => {
         button.addEventListener('click', () => {
-            // 1. Mettre à jour le filtre global
             currentStatusFilter = button.dataset.status;
-
-            // 2. Mettre à jour le style (bouton actif)
             statusButtons.forEach(btn => btn.classList.remove('active-status-btn'));
             button.classList.add('active-status-btn');
-
-            // 3. Relancer l'affichage
             renderResults();
         });
     });
 
     // --- PEUPLEMENT DES FILTRES SECONDAIRES ---
     function populateFilters() {
-        // Récupérer et trier les thèmes
         const themes = [...new Set(vizilleData.map(item => item.theme))].sort();
-        // Récupérer et trier les années (du plus récent au plus ancien)
         const annees = [...new Set(vizilleData.map(item => item.annee))].sort((a, b) => b - a);
 
         themes.forEach(theme => {
@@ -85,12 +78,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // 3. Trier les résultats (du plus récent à l'ancien)
         filteredData.sort((a, b) => b.annee - a.annee); 
 
-        filteredData.forEach(item => {
+        filteredData.forEach((item, index) => { // Ajout de 'index' pour le délai
             const card = document.createElement('div');
-            // Utiliser la classe CSS par statut (ex: status-Achevé) pour la couleur de la bordure
             card.className = `project-card status-${item.statut.replace(/\s/g, '-')}`; 
             
-            // Formatage du montant en Euros (sans décimales)
             const montantFormatte = item.montant > 0 
                 ? new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 }).format(item.montant) 
                 : 'Non spécifié / Non chiffré';
@@ -106,6 +97,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
             resultsContainer.appendChild(card);
+            
+            // --- NOUVEAU : Animation d'apparition séquentielle ---
+            // Le délai (index * 50ms) crée l'effet "feuilles bondissantes" ou d'apparition en cascade
+            setTimeout(() => {
+                card.style.animation = `fadeInSlide 0.5s ease forwards`;
+            }, index * 50); 
+            // ---------------------------------------------------
         });
     }
 
@@ -115,5 +113,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initialiser la page au chargement
     populateFilters();
-    renderResults(); // Le premier appel lancera le filtre 'all' par défaut
+    // Cliquer sur le bouton "Tout Afficher" au départ pour lancer le filtre et l'animation
+    document.querySelector('.status-btn[data-status="all"]').click(); 
 });
