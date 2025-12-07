@@ -1,120 +1,173 @@
-// script.js : Gère l'affichage dynamique, le filtrage ET L'ANIMATION
-
+// script.js - Logique de l'application
 document.addEventListener('DOMContentLoaded', () => {
-    // VÉRIFICATION CRITIQUE : Si vizilleData n'est pas trouvé, RIEN ne s'affiche.
+    // ----------------------------------------------------
+    // 1. Initialisation des éléments du DOM
+    // ----------------------------------------------------
+    const cardsContainer = document.getElementById('cards-container');
+    const filterStatut = document.getElementById('filter-statut');
+    const filterTheme = document.getElementById('filter-theme');
+    const filterAnnee = document.getElementById('filter-annee');
+    const compteurElement = document.getElementById('compteur');
+    const montantTotalElement = document.getElementById('montant-total');
+    
+    // Déclaration de vizilleData pour être sûr qu'elle existe (elle est chargée via data.js)
     if (typeof vizilleData === 'undefined') {
-        const resultsContainer = document.getElementById('results-container');
-        // Affiche un message d'erreur ÉNORME et ROUGE si le fichier data.js n'est pas chargé
-        resultsContainer.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; color: red; font-weight: bold; padding: 50px; font-size: 1.5em;">ERREUR : Le fichier **data.js** n\'a pas pu être chargé. VEUILLEZ VÉRIFIER L\'ORTHOGRAPHE DU NOM DE FICHIER et son chemin d\'accès dans index.html.</p>';
-        return; // Arrête l'exécution du script.
+        console.error("ERREUR: Le tableau 'vizilleData' n'est pas défini. Vérifiez le chargement de data.js.");
+        return;
     }
 
-    const resultsContainer = document.getElementById('results-container');
-    const themeFilter = document.getElementById('theme-filter');
-    const anneeFilter = document.getElementById('annee-filter');
-    const countsElement = document.getElementById('counts');
-    const statusButtons = document.querySelectorAll('#status-navigation .status-btn');
+    // ----------------------------------------------------
+    // 2. Fonctions d'aide (Helpers)
+    // ----------------------------------------------------
 
-    let currentStatusFilter = 'all'; 
-
-    // --- LOGIQUE DE FILTRAGE PAR STATUT (BOUTONS) ---
-    statusButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            currentStatusFilter = button.dataset.status;
-            statusButtons.forEach(btn => btn.classList.remove('active-status-btn'));
-            button.classList.add('active-status-btn');
-            renderResults();
-        });
-    });
-
-    // --- PEUPLEMENT DES FILTRES SECONDAIRES ---
-    function populateFilters() {
-        const themes = [...new Set(vizilleData.map(item => item.theme))].sort();
-        const annees = [...new Set(vizilleData.map(item => item.annee))].sort((a, b) => b - a);
-
-        themes.forEach(theme => {
-            const option = document.createElement('option');
-            option.value = theme;
-            option.textContent = theme;
-            themeFilter.appendChild(option);
-        });
-
-        annees.forEach(annee => {
-            const option = document.createElement('option');
-            option.value = annee;
-            option.textContent = annee;
-            anneeFilter.appendChild(option);
-        });
-    }
-
-    // --- FONCTION PRINCIPALE DE RENDU ---
-    function renderResults() {
-        const selectedTheme = themeFilter.value;
-        const selectedAnnee = anneeFilter.value;
-
-        let filteredData = vizilleData;
+    /**
+     * Crée les options pour un filtre (select) à partir d'un ensemble de valeurs uniques.
+     * @param {HTMLElement} selectElement - L'élément <select> à remplir.
+     * @param {string[]} values - Le tableau des valeurs uniques à ajouter.
+     */
+    function populateFilter(selectElement, values) {
+        // Ajoute l'option "Tous" par défaut
+        selectElement.innerHTML = '<option value="">Tous</option>';
         
-        // 0. Filtrer par Statut principal (boutons)
-        if (currentStatusFilter !== 'all') {
-            filteredData = filteredData.filter(item => item.statut === currentStatusFilter);
-        }
+        // Trie les valeurs (les années en ordre décroissant, les thèmes alphabétiquement)
+        const sortedValues = Array.from(values).sort((a, b) => {
+            if (selectElement.id === 'filter-annee') {
+                return b - a; // Tri décroissant pour les années
+            }
+            return a.localeCompare(b); // Tri alphabétique pour les autres
+        });
 
-        // 1. Filtrer par Thème
-        if (selectedTheme !== 'all') {
-            filteredData = filteredData.filter(item => item.theme === selectedTheme);
-        }
-
-        // 2. Filtrer par Année
-        if (selectedAnnee !== 'all') {
-            filteredData = filteredData.filter(item => item.annee.toString() === selectedAnnee);
-        }
-
-        resultsContainer.innerHTML = '';
-        countsElement.textContent = `${filteredData.length} projets affichés`;
-
-        if (filteredData.length === 0) {
-            resultsContainer.innerHTML = '<p style="grid-column: 1 / -1; text-align: center; padding: 30px;">Aucun projet ne correspond à ces critères de filtrage.</p>';
-            return;
-        }
-        
-        // 3. Trier les résultats (du plus récent à l'ancien)
-        filteredData.sort((a, b) => b.annee - a.annee); 
-
-        filteredData.forEach((item, index) => {
-            const card = document.createElement('div');
-            // La classe CSS utilise le statut pour la couleur de la bordure
-            card.className = `project-card status-${item.statut.replace(/\s/g, '-')}`; 
-            
-            // Formatage monétaire
-            const montantFormatte = item.montant > 0 
-                ? new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 }).format(item.montant) 
-                : 'Non spécifié / Non chiffré';
-            
-            card.innerHTML = `
-                <h3>${item.titre}</h3>
-                <p class="description">${item.description}</p>
-                <div class="meta">
-                    <p><strong>Thème :</strong> ${item.theme}</p>
-                    <p><strong>Statut :</strong> <span class="status-badge">${item.statut}</span></p>
-                    <p><strong>Année :</strong> ${item.annee}</p>
-                    <p><strong>Coût estimé :</strong> <span class="montant">${montantFormatte}</span></p>
-                </div>
-            `;
-            resultsContainer.appendChild(card);
-            
-            // Animation d'apparition séquentielle
-            setTimeout(() => {
-                card.style.animation = `fadeInSlide 0.5s ease forwards`;
-            }, index * 50); 
+        sortedValues.forEach(value => {
+            const option = document.createElement('option');
+            option.value = value;
+            // Met le texte en majuscule pour les thèmes pour uniformité
+            option.textContent = value.toUpperCase();
+            selectElement.appendChild(option);
         });
     }
+    
+    /**
+     * Retourne la classe CSS de couleur en fonction du statut.
+     * @param {string} statut - Le statut du projet (Achevé, En cours, Prévu).
+     * @returns {string} La classe CSS correspondante.
+     */
+    function getStatutClass(statut) {
+        switch (statut) {
+            case 'Achevé':
+            case 'RÉALISÉ': // Inclut le statut du CSV
+                return 'statut-acheve';
+            case 'En cours':
+            case 'EN COURS': // Inclut le statut du CSV
+                return 'statut-en-cours';
+            case 'Prévu':
+            case 'PROJET': // Inclut le statut du CSV
+            case 'À FAIRE':
+                return 'statut-prevu';
+            default:
+                return 'statut-inconnu';
+        }
+    }
 
-    // Attacher les écouteurs d'événements aux filtres secondaires
-    themeFilter.addEventListener('change', renderResults);
-    anneeFilter.addEventListener('change', renderResults);
+    // ----------------------------------------------------
+    // 3. Rendu des cartes et Mise à jour des compteurs
+    // ----------------------------------------------------
 
-    // Initialiser la page au chargement
-    populateFilters();
-    // Déclenche le premier rendu des cartes
-    document.querySelector('.status-btn[data-status="all"]').click(); 
+    /**
+     * Affiche les projets filtrés et met à jour les indicateurs.
+     * @param {object[]} projets - Le tableau des projets à afficher.
+     */
+    function renderProjets(projets) {
+        cardsContainer.innerHTML = ''; // Vide le conteneur existant
+        let montantTotal = 0;
+
+        if (projets.length === 0) {
+            cardsContainer.innerHTML = '<p class="no-results">Aucun projet ne correspond à votre sélection de filtres.</p>';
+        } else {
+            projets.forEach(projet => {
+                // Création de la carte
+                const card = document.createElement('div');
+                card.classList.add('card', getStatutClass(projet.statut));
+                
+                // Mettre en forme le montant
+                const montantFormatte = (projet.montant > 0) 
+                    ? `Montant : ${new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 }).format(projet.montant)}`
+                    : 'Montant : (Non chiffré)';
+                
+                // Calcul du montant total pour l'affichage général
+                montantTotal += projet.montant || 0;
+
+                // Contenu HTML de la carte
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="card-theme">${projet.theme.toUpperCase()}</span>
+                        <span class="card-annee">${projet.annee}</span>
+                    </div>
+                    <h3 class="card-title">${projet.titre}</h3>
+                    <p class="card-description">${projet.description}</p>
+                    <div class="card-footer">
+                        <span class="card-statut ${getStatutClass(projet.statut)}">${projet.statut.toUpperCase()}</span>
+                        <span class="card-montant">${montantFormatte}</span>
+                    </div>
+                `;
+                cardsContainer.appendChild(card);
+            });
+        }
+        
+        // Mise à jour des compteurs
+        compteurElement.textContent = `${projets.length} projets affichés`;
+        montantTotalElement.textContent = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 }).format(montantTotal);
+    }
+    
+    // ----------------------------------------------------
+    // 4. Logique de Filtrage
+    // ----------------------------------------------------
+
+    /**
+     * Applique les filtres sélectionnés et lance le rendu des projets.
+     */
+    function filterProjets() {
+        const statut = filterStatut.value;
+        const theme = filterTheme.value;
+        const annee = filterAnnee.value;
+
+        const projetsFiltres = vizilleData.filter(projet => {
+            const statutMatch = !statut || projet.statut === statut;
+            const themeMatch = !theme || projet.theme.toUpperCase() === theme.toUpperCase();
+            const anneeMatch = !annee || projet.annee.toString() === annee;
+            
+            return statutMatch && themeMatch && anneeMatch;
+        });
+
+        renderProjets(projetsFiltres);
+    }
+
+    // ----------------------------------------------------
+    // 5. Initialisation de l'application
+    // ----------------------------------------------------
+
+    /**
+     * Lance les fonctions nécessaires au démarrage de l'application.
+     */
+    function initApp() {
+        // 5a. Collecte des valeurs uniques pour remplir les filtres
+        const uniqueStatuts = new Set(vizilleData.map(p => p.statut).filter(s => s));
+        const uniqueThemes = new Set(vizilleData.map(p => p.theme).filter(t => t));
+        const uniqueAnnees = new Set(vizilleData.map(p => p.annee).filter(a => a));
+        
+        // 5b. Remplissage des filtres
+        populateFilter(filterStatut, uniqueStatuts);
+        populateFilter(filterTheme, uniqueThemes);
+        populateFilter(filterAnnee, uniqueAnnees);
+
+        // 5c. Ajout des écouteurs d'événements
+        filterStatut.addEventListener('change', filterProjets);
+        filterTheme.addEventListener('change', filterProjets);
+        filterAnnee.addEventListener('change', filterProjets);
+
+        // 5d. Affichage initial de tous les projets
+        renderProjets(vizilleData);
+    }
+
+    // Lancement de l'initialisation
+    initApp();
 });
