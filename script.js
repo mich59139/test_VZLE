@@ -3,7 +3,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Le tableau vizilleData est défini dans data.js
     if (typeof vizilleData === 'undefined') {
-        // Cette erreur s'affiche si data.js n'est pas trouvé ou est mal formaté
         console.error("Erreur: data.js n'a pas été chargé. Vérifiez le nom du fichier data.js.");
         return;
     }
@@ -12,8 +11,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const themeFilter = document.getElementById('theme-filter');
     const anneeFilter = document.getElementById('annee-filter');
     const countsElement = document.getElementById('counts');
+    const statusButtons = document.querySelectorAll('#status-navigation .status-btn');
 
-    // Fonction pour peupler les listes déroulantes (Thèmes et Années)
+    let currentStatusFilter = 'all'; // Variable globale pour le filtre de statut
+
+    // --- LOGIQUE DE FILTRAGE PAR STATUT (BOUTONS) ---
+    statusButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // 1. Mettre à jour le filtre global
+            currentStatusFilter = button.dataset.status;
+
+            // 2. Mettre à jour le style (bouton actif)
+            statusButtons.forEach(btn => btn.classList.remove('active-status-btn'));
+            button.classList.add('active-status-btn');
+
+            // 3. Relancer l'affichage
+            renderResults();
+        });
+    });
+
+    // --- PEUPLEMENT DES FILTRES SECONDAIRES ---
     function populateFilters() {
         // Récupérer et trier les thèmes
         const themes = [...new Set(vizilleData.map(item => item.theme))].sort();
@@ -35,12 +52,17 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Fonction principale de filtrage et d'affichage
+    // --- FONCTION PRINCIPALE DE RENDU ---
     function renderResults() {
         const selectedTheme = themeFilter.value;
         const selectedAnnee = anneeFilter.value;
 
         let filteredData = vizilleData;
+        
+        // 0. Filtrer par Statut principal (boutons)
+        if (currentStatusFilter !== 'all') {
+            filteredData = filteredData.filter(item => item.statut === currentStatusFilter);
+        }
 
         // 1. Filtrer par Thème
         if (selectedTheme !== 'all') {
@@ -60,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        // 3. Trier les résultats (ex: du plus récent à l'ancien)
+        // 3. Trier les résultats (du plus récent à l'ancien)
         filteredData.sort((a, b) => b.annee - a.annee); 
 
         filteredData.forEach(item => {
@@ -87,11 +109,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Attacher les écouteurs d'événements aux filtres pour déclencher le rendu
+    // Attacher les écouteurs d'événements aux filtres secondaires
     themeFilter.addEventListener('change', renderResults);
     anneeFilter.addEventListener('change', renderResults);
 
     // Initialiser la page au chargement
     populateFilters();
-    renderResults();
+    renderResults(); // Le premier appel lancera le filtre 'all' par défaut
 });
