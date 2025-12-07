@@ -5,7 +5,9 @@ body {
     background-color: #e9ecef;
     color: #333;
     /* --- NOUVEAU FOND DISCRET : Blason de Vizille très estompé --- */
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Blason_ville_fr_Vizille.svg/512px-Blason_ville_fr_Vizille.svg.png');
+    /* ATTENTION: Vous devez placer l'image du blason dans ce même dossier */
+    /* et la nommer blason-vizille.png (ou .svg) pour que cela fonctionne. */
+    background-image: url('blason-vizille.png');
     background-repeat: no-repeat;
     background-position: top 50px right 20px; /* Position en haut à droite */
     background-size: 200px;
