@@ -3,22 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vizille en Mouvement - Bilan Cartographique 2025</title>
-    
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
-    
+    <title>Vizille en Mouvement : Notre Bilan 2025 par Thème</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <h1>Vizille en Mouvement : Nos réalisations sur la carte (Bilan 2025)</h1>
-    <p>Chaque point représente une action concrète réalisée ou lancée par l'équipe municipale en 2025. Cliquez sur les marqueurs pour voir les détails et les chiffres clés.</p>
-    
-    <div id="map"></div>
+    <header>
+        <h1>Vizille en Mouvement : Bilan 2025 par Thème 📊</h1>
+        <p>Preuves par l'action : l'avancement de nos projets majeurs dans les domaines clés de la vie vizilloise.</p>
+    </header>
 
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-        
-    <script src="map.js"></script>
+    <section class="bilan-section urbanisme-focus">
+        <h2>🏗️ 1. Urbanisme, Travaux & Cadre de Vie (Les Transformations)</h2>
+        <div class="card-container two-cols">
+            <div class="bilan-card status-acheve">
+                <h3>Cour École Paul Langevin (R2025_U02)</h3>
+                <p>Création d'un îlot de fraîcheur : **1600 m² de bitume supprimés** et plantation de 20 arbres.</p>
+                <span class="value">296 000 €</span>
+                <span class="detail status-acheve">✅ Achevé (Août 2025)</span>
+            </div>
+            <div class="bilan-card status-en-cours">
+                <h3>Aménagement Rue Général de Gaulle (R2025_U01)</h3>
+                <p>Embellissement, pavage et piétonnisation partielle du centre-ville.</p>
+                <span class="value">917 200 €</span>
+                <span class="detail status-en-cours">🚧 En cours (Fin 2025)</span>
+            </div>
+             <div class="bilan-card status-acheve">
+                <h3>Rénovation Écoles (été 2025) (R2025_U03)</h3>
+                <p>Rénovation : Sanitaires, peinture, stores, interphones pour plusieurs établissements.</p>
+                <span class="value">105 288 €</span>
+                <span class="detail status-acheve">✅ Achevé (Été 2025)</span>
+            </div>
+            <div class="bilan-card status-en-cours">
+                <h3>Projet Secteur Tanneries (R2025_U04)</h3>
+                <p>Lancement de la concertation citoyenne et planification de la rénovation urbaine. Démolition partielle prévue début 2026.</p>
+                <span class="value">136 700 €</span>
+                <span class="detail status-en-cours">🚧 En cours</span>
+            </div>
+        </div>
+    </section>
+
+    <hr>
+
+    <section class="bilan-section social-focus">
+        <h2>💖 2. Santé, Social & Proximité (Les Services Publics)</h2>
+        <div class="card-container two-cols">
+            <div class="bilan-card status-en-cours">
+                <h3>Acquisition Maison de Santé (R2025_S01)</h3>
+                <p>Achat des locaux (rue Jean Jaurès) pour l'implantation d'une Maison de Santé Pluridisciplinaire.</p>
+                <span class="value">360 000 €</span>
+                <span class="detail status-en-cours">🚧 En cours (Locaux Acquises)</span>
+            </div>
+            <div class="bilan-card status-en-cours">
+                <h3>Renforcement Police Municipale (R2025_S03)</h3>
+                <p>Création votée du **3e poste** de Policière/Policier Municipal.</p>
+                <span class="value">0 €</span>
+                <span class="detail status-en-cours">🚧 En cours (Recrutement Automne 2025)</span>
+            </div>
+            <div class="bilan-card status-acheve">
+                <h3>Volontaires Tranquillité Publique (R2025_S05)</h3>
+                <p>Lancement de l'initiative de bénévoles pour le lien social et la veille citoyenne.</p>
+                <span class="value">0 €</span>
+                <span class="detail status-acheve">✅ Lancée (Janvier 2025)</span>
+            </div>
+            <div class="bilan-card status-en-cours">
+                <h3>Lancement OPAH-RU (Habitat) (R2025_H01)</h3>
+                <p>Programme pour la rénovation de **250 façades** et lutte contre l'habitat indigne (Subventions jusqu'à 50%).</p>
+                <span class="value">3 200 000 €</span>
+                <span class="detail status-en-cours">🚧 En cours</span>
+            </div>
+        </div>
+    </section>
+
+    <hr>
+
+    <section class="bilan-section environnement-focus">
+        <h2>🌿 3. Environnement & Mobilité (L'Avenir Durable)</h2>
+        <div class="card-container two-cols">
+             <div class="bilan-card status-acheve">
+                <h3>Compostage de Quartier (R2025_E06)</h3>
+                <p>Installation de **3 sites de compostage** en libre accès (École du Château, Parking Chantefeuille, etc.).</p>
+                <span class="value">0 €</span>
+                <span class="detail status-acheve">✅ Achevé (Mars 2025)</span>
+            </div>
+            <div class="bilan-card status-acheve">
+                <h3>Parking des Tissages (R2025_M01)</h3>
+                <p>Réaménagement de **120 places gratuites** sécurisées avec vidéoprotection (partenariat Métropole).</p>
+                <span class="value">0 €</span>
+                <span class="detail status-acheve">✅ Achevé (Août 2025)</span>
+            </div>
+            <div class="bilan-card status-en-cours">
+                <h3>GTC Bâtiments (R2025_E01)</h3>
+                <p>Gestion Technique Centralisée sur 14 équipements pour la réduction de la consommation d'énergie (-10% d'ici 2027).</p>
+                <span class="value">51 000 €</span>
+                <span class="detail status-en-cours">🚧 En cours</span>
+            </div>
+            <div class="bilan-card status-en-cours">
+                <h3>Expérimentation Rue République (R2025_M03)</h3>
+                <p>Inversion sens de circulation depuis Mars 2025. Concertation active avec enquête citoyenne.</p>
+                <span class="value">0 €</span>
+                <span class="detail status-en-cours">🚧 En cours / Concertation</span>
+            </div>
+        </div>
+    </section>
     
+    <hr>
+
+    <section class="bilan-section patrimoine-focus">
+        <h2>🏛️ 4. Patrimoine, Culture & Finances (Le Cœur de Ville)</h2>
+        <div class="card-container two-cols">
+            <div class="bilan-card status-acheve">
+                <h3>Vote du Budget 2025 (R2025_F01)</h3>
+                <p>Budget voté à l'unanimité le 8 avril 2025. **5,38 M€ d'investissement** prévus.</p>
+                <span class="value">15 625 426 € (Global)</span>
+                <span class="detail status-acheve">✅ Achevé (8 Avril 2025)</span>
+            </div>
+            <div class="bilan-card status-acheve">
+                <h3>Acquisition Chapelle du Péage (R2025_U05)</h3>
+                <p>Acquisition pour préserver ce patrimoine historique fin XIXe et le valoriser.</p>
+                <span class="value">94 500 €</span>
+                <span class="detail status-acheve">✅ Acquise</span>
+            </div>
+            <div class="bilan-card status-acheve">
+                <h3>Restauration Orgue Église (R2025_C01)</h3>
+                <p>Fin des travaux après 13 ans. Inauguration le 14 septembre 2025.</p>
+                <span class="value">0 €</span>
+                <span class="detail status-acheve">✅ Achevé</span>
+            </div>
+            <div class="bilan-card status-acheve">
+                <h3>Label Camp de base Belledonne (R2025_T01)</h3>
+                <p>Vizille labellisée. Aménagements (Halte équestre, Falaise d'escalade sécurisée) en cours.</p>
+                <span class="value">60 900 €</span>
+                <span class="detail status-acheve">✅ Obtenu</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Un mandat de l'action, des faits et de l'engagement. **Vizille en Mouvement.**</p>
+    </footer>
+
 </body>
 </html>
