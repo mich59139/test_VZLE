@@ -28,7 +28,7 @@ header h1 {
     font-weight: 900;
 }
 
-/* --- NOUVEAU : Navigation par Statut (Boutons) --- */
+/* --- Navigation par Statut (Boutons) --- */
 #status-navigation {
     display: flex;
     justify-content: center;
@@ -47,8 +47,8 @@ header h1 {
     background-color: #fff;
     cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.3s, color 0.3s;
-    white-space: nowrap; /* Empêche la rupture du texte sur le bouton */
+    transition: background-color 0.3s, color 0.3s, transform 0.2s; /* Ajouté transition pour un meilleur feedback */
+    white-space: nowrap;
 }
 
 .status-btn:hover {
@@ -106,31 +106,27 @@ header h1 {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-left: 5px solid;
+    /* Styles pour l'effet bondissant */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+    opacity: 0; /* Caché par défaut pour l'animation d'apparition */
+    transform: translateY(20px); /* Décalé vers le bas au départ */
 }
 
-.project-card h3 {
-    margin-top: 0;
-    color: #004d99;
-    font-size: 1.4em;
+/* Effet de soulèvement au survol (le "bondissement" au toucher de la souris) */
+.project-card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-.project-card .description {
-    color: #555;
-    margin-bottom: 10px;
-}
-
-.project-card .meta {
-    font-size: 0.9em;
-    padding-top: 10px;
-    border-top: 1px dashed #eee;
-}
-
-.project-card .montant {
-    font-weight: bold;
-    color: #d90000;
+/* Keyframes pour l'animation d'apparition */
+@keyframes fadeInSlide {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* Styles des bordures par Statut */
-.status-Achevé { border-left-color: #009933; } /* Vert pour les réalisations terminées */
-.status-En-cours { border-left-color: #ff9900; } /* Orange pour les chantiers en cours */
-.status-Prévu { border-left-color: #004d99; } /* Bleu pour les projets à venir */
+.status-Achevé { border-left-color: #009933; }
+.status-En-cours { border-left-color: #ff9900; }
+.status-Prévu { border-left-color: #004d99; }
