@@ -2,17 +2,9 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #e9ecef;
+    background-color: #e9ecef; /* Fond d'écran gris clair */
     color: #333;
-    
-    /* Le blason de Vizille (pour information seulement, pas nécessaire pour le texte) */
-    background-image: url('blason-vizille.png');
-    background-repeat: no-repeat;
-    background-position: top 50px right 20px;
-    background-size: 200px;
-    opacity: 0.08; 
-    
-    background-attachment: fixed;
+    /* Toutes les lignes de blason/logo ont été retirées. */
 }
 
 #dashboard-container {
