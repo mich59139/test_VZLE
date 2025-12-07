@@ -23,7 +23,7 @@ body {
 }
 
 header {
-    background-color: #445566; /* NOUVEAU : Gris Ardoise (remplace le bleu) */
+    background-color: #445566; /* Gris Ardoise */
     color: white;
     padding: 30px 20px;
     text-align: center;
@@ -63,7 +63,7 @@ header h1 {
 }
 
 .active-status-btn {
-    background-color: #445566; /* NOUVEAU : Gris Ardoise */
+    background-color: #445566; /* Gris Ardoise */
     color: white;
     border-color: #445566;
 }
@@ -89,7 +89,7 @@ header h1 {
 }
 
 #counts {
-    background-color: #6B8E23; /* NOUVEAU : Vert Olive (remplace le rouge) */
+    background-color: #6B8E23; /* Vert Olive */
     color: white;
     padding: 10px 20px;
     border-radius: 5px;
@@ -118,7 +118,7 @@ header h1 {
     transform: translateY(20px);
 }
 
-/* Effet de soulèvement au survol */
+/* Effet de soulèvement au survol (le "bondissement") */
 .project-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
@@ -134,7 +134,7 @@ header h1 {
 
 .project-card h3 {
     margin-top: 0;
-    color: #445566; /* NOUVEAU : Gris Ardoise */
+    color: #445566; /* Gris Ardoise */
     font-size: 1.4em;
 }
 
@@ -151,10 +151,10 @@ header h1 {
 
 .project-card .montant {
     font-weight: bold;
-    color: #6B8E23; /* NOUVEAU : Vert Olive */
+    color: #6B8E23; /* Vert Olive */
 }
 
 /* Styles des bordures par Statut */
-.status-Achevé { border-left-color: #009933; } /* Vert (OK) */
-.status-En-cours { border-left-color: #ff9900; } /* Orange (OK) */
-.status-Prévu { border-left-color: #445566; } /* Gris Ardoise (remplace le bleu) */
+.status-Achevé { border-left-color: #009933; } /* Vert (Réalisation) */
+.status-En-cours { border-left-color: #ff9900; } /* Orange (Chantier) */
+.status-Prévu { border-left-color: #445566; } /* Gris Ardoise (Projet) */
