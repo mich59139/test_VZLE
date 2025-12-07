@@ -4,21 +4,26 @@ body {
     padding: 0;
     background-color: #e9ecef;
     color: #333;
-    /* --- NOUVEAU FOND DISCRET : Blason de Vizille très estompé --- */
-    /* ATTENTION: Vous devez placer l'image du blason dans ce même dossier */
-    /* et la nommer blason-vizille.png (ou .svg) pour que cela fonctionne. */
+    
+    /* Le blason de Vizille, en filigrane */
     background-image: url('blason-vizille.png');
     background-repeat: no-repeat;
-    background-position: top 50px right 20px; /* Position en haut à droite */
+    background-position: top 50px right 20px;
     background-size: 200px;
-    opacity: 0.08; /* Rendre le blason très transparent */
-    background-attachment: fixed; /* Reste fixe lors du défilement */
+    
+    /* CHANGEMENT 1 : Opacité augmentée du blason pour qu'il soit plus visible */
+    opacity: 0.15; 
+    
+    background-attachment: fixed;
 }
 
 #dashboard-container {
     max-width: 1400px;
     margin: 0 auto;
-    background-color: rgba(255, 255, 255, 0.95); /* Fond blanc semi-transparent */
+    
+    /* CHANGEMENT 2 : Opacité du conteneur principal augmentée à 98% pour une visibilité parfaite du texte */
+    background-color: rgba(255, 255, 255, 0.98); 
+    
     padding: 20px;
     min-height: 100vh;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
@@ -157,6 +162,6 @@ header h1 {
 }
 
 /* Styles des bordures par Statut */
-.status-Achevé { border-left-color: #009933; } /* Vert (Réalisation) */
-.status-En-cours { border-left-color: #ff9900; } /* Orange (Chantier) */
-.status-Prévu { border-left-color: #445566; } /* Gris Ardoise (Projet) */
+.status-Achevé { border-left-color: #009933; }
+.status-En-cours { border-left-color: #ff9900; }
+.status-Prévu { border-left-color: #445566; }
