@@ -12,12 +12,19 @@
     <div id="dashboard-container">
         
         <header>
-            <h1>Vizille en Mouvement : Bilan d'Action 2020-2026</h1>
-            <p>Filtrez par Thème ou par Année pour explorer les réalisations de la municipalité.</p>
+            <h1>Vizille en Mouvement : Bilan d'Action 2025-2030</h1>
+            <p>Filtrez par statut, thème ou année pour explorer les réalisations de la municipalité.</p>
         </header>
 
         <main>
-            <div id="filters">
+            <div id="status-navigation">
+                <button data-status="all" class="status-btn active-status-btn">🗂️ Tout Afficher</button>
+                <button data-status="Achevé" class="status-btn">✅ Réalisations Terminées</button>
+                <button data-status="En cours" class="status-btn">🚧 Réalisations En Cours</button>
+                <button data-status="Prévu" class="status-btn">🎯 Projets Planifiés</button>
+            </div>
+            
+            <div id="secondary-filters">
                 <select id="theme-filter" aria-label="Filtrer par Thème">
                     <option value="all">Tous les Thèmes</option>
                     </select>
