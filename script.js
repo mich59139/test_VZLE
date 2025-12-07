@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Le tableau vizilleData est défini dans data.js
     if (typeof vizilleData === 'undefined') {
-        console.error("Erreur: data.js n'a pas été chargé. Vérifiez le nom du fichier data.js.");
+        console.error("Erreur: vizilleData n'est pas défini. Vérifiez la syntaxe et le chargement de data.js.");
         return;
     }
 
@@ -78,8 +78,9 @@ document.addEventListener('DOMContentLoaded', () => {
         // 3. Trier les résultats (du plus récent à l'ancien)
         filteredData.sort((a, b) => b.annee - a.annee); 
 
-        filteredData.forEach((item, index) => { // Ajout de 'index' pour le délai
+        filteredData.forEach((item, index) => {
             const card = document.createElement('div');
+            // La classe CSS utilise le statut pour la couleur de la bordure
             card.className = `project-card status-${item.statut.replace(/\s/g, '-')}`; 
             
             const montantFormatte = item.montant > 0 
@@ -98,12 +99,10 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             resultsContainer.appendChild(card);
             
-            // --- NOUVEAU : Animation d'apparition séquentielle ---
-            // Le délai (index * 50ms) crée l'effet "feuilles bondissantes" ou d'apparition en cascade
+            // Animation d'apparition séquentielle pour un effet dynamique
             setTimeout(() => {
                 card.style.animation = `fadeInSlide 0.5s ease forwards`;
             }, index * 50); 
-            // ---------------------------------------------------
         });
     }
 
@@ -111,8 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     themeFilter.addEventListener('change', renderResults);
     anneeFilter.addEventListener('change', renderResults);
 
-    // Initialiser la page au chargement
+    // Initialiser la page au chargement (déclenche le premier affichage)
     populateFilters();
-    // Cliquer sur le bouton "Tout Afficher" au départ pour lancer le filtre et l'animation
     document.querySelector('.status-btn[data-status="all"]').click(); 
 });
