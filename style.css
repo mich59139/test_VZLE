@@ -4,19 +4,26 @@ body {
     padding: 0;
     background-color: #e9ecef;
     color: #333;
+    /* --- NOUVEAU FOND DISCRET : Blason de Vizille très estompé --- */
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c8/Blason_ville_fr_Vizille.svg/512px-Blason_ville_fr_Vizille.svg.png');
+    background-repeat: no-repeat;
+    background-position: top 50px right 20px; /* Position en haut à droite */
+    background-size: 200px;
+    opacity: 0.08; /* Rendre le blason très transparent */
+    background-attachment: fixed; /* Reste fixe lors du défilement */
 }
 
 #dashboard-container {
     max-width: 1400px;
     margin: 0 auto;
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 255, 255, 0.95); /* Fond blanc semi-transparent */
     padding: 20px;
     min-height: 100vh;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 header {
-    background-color: #004d99; /* Bleu principal */
+    background-color: #445566; /* NOUVEAU : Gris Ardoise (remplace le bleu) */
     color: white;
     padding: 30px 20px;
     text-align: center;
@@ -47,7 +54,7 @@ header h1 {
     background-color: #fff;
     cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.3s, color 0.3s, transform 0.2s; /* Ajouté transition pour un meilleur feedback */
+    transition: background-color 0.3s, color 0.3s, transform 0.2s;
     white-space: nowrap;
 }
 
@@ -56,13 +63,13 @@ header h1 {
 }
 
 .active-status-btn {
-    background-color: #004d99;
+    background-color: #445566; /* NOUVEAU : Gris Ardoise */
     color: white;
-    border-color: #004d99;
+    border-color: #445566;
 }
 
 .active-status-btn:hover {
-    background-color: #003a7a;
+    background-color: #313d48;
 }
 
 /* --- Filtres Secondaires et Compteur --- */
@@ -82,9 +89,9 @@ header h1 {
 }
 
 #counts {
-    padding: 10px 20px;
-    background-color: #d90000;
+    background-color: #6B8E23; /* NOUVEAU : Vert Olive (remplace le rouge) */
     color: white;
+    padding: 10px 20px;
     border-radius: 5px;
     font-weight: bold;
     display: flex;
@@ -106,15 +113,14 @@ header h1 {
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-left: 5px solid;
-    /* Styles pour l'effet bondissant */
-    transition: transform 0.3s ease, box-shadow 0.3s ease; 
-    opacity: 0; /* Caché par défaut pour l'animation d'apparition */
-    transform: translateY(20px); /* Décalé vers le bas au départ */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
 }
 
-/* Effet de soulèvement au survol (le "bondissement" au toucher de la souris) */
+/* Effet de soulèvement au survol */
 .project-card:hover {
-    transform: translateY(-5px); 
+    transform: translateY(-5px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -126,7 +132,29 @@ header h1 {
     }
 }
 
+.project-card h3 {
+    margin-top: 0;
+    color: #445566; /* NOUVEAU : Gris Ardoise */
+    font-size: 1.4em;
+}
+
+.project-card .description {
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.project-card .meta {
+    font-size: 0.9em;
+    padding-top: 10px;
+    border-top: 1px dashed #eee;
+}
+
+.project-card .montant {
+    font-weight: bold;
+    color: #6B8E23; /* NOUVEAU : Vert Olive */
+}
+
 /* Styles des bordures par Statut */
-.status-Achevé { border-left-color: #009933; }
-.status-En-cours { border-left-color: #ff9900; }
-.status-Prévu { border-left-color: #004d99; }
+.status-Achevé { border-left-color: #009933; } /* Vert (OK) */
+.status-En-cours { border-left-color: #ff9900; } /* Orange (OK) */
+.status-Prévu { border-left-color: #445566; } /* Gris Ardoise (remplace le bleu) */
