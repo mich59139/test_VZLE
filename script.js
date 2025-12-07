@@ -3,7 +3,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Le tableau vizilleData est défini dans data.js
     if (typeof vizilleData === 'undefined') {
-        console.error("Erreur: data.js n'a pas été chargé.");
+        // Cette erreur s'affiche si data.js n'est pas trouvé ou est mal formaté
+        console.error("Erreur: data.js n'a pas été chargé. Vérifiez le nom du fichier data.js.");
         return;
     }
 
