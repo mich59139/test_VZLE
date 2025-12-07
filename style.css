@@ -2,103 +2,98 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f9fa; /* Fond très clair */
+    background-color: #e9ecef; /* Couleur de fond général (simule un fond de carte clair) */
     color: #333;
 }
 
+#dashboard-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.95); /* Fond blanc semi-transparent pour lire le texte */
+    padding: 20px;
+    min-height: 100vh;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
 header {
-    background-color: #004d99; /* Bleu principal Vizille */
+    background-color: #004d99; /* Bleu principal */
     color: white;
-    padding: 40px 20px;
+    padding: 30px 20px;
     text-align: center;
+    margin-bottom: 20px;
+    border-radius: 5px;
 }
 
 header h1 {
-    margin-top: 0;
-    font-size: 2.5em;
     font-weight: 900;
 }
 
-.bilan-section {
-    padding: 40px 20px;
-    max-width: 1300px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.bilan-section h2 {
-    color: #004d99;
-    border-bottom: 3px solid #004d99;
-    display: inline-block;
-    padding-bottom: 5px;
+/* --- Filtres et Compteur --- */
+#filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
     margin-bottom: 30px;
-    font-size: 1.8em;
+    flex-wrap: wrap;
 }
 
-.card-container {
+#filters select {
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+}
+
+#counts {
+    padding: 10px 20px;
+    background-color: #d90000; /* Rouge Vizille */
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    min-width: 200px;
+    justify-content: center;
+}
+
+/* --- Résultats (Grille) --- */
+#results-container {
     display: grid;
     gap: 20px;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
 }
 
-.bilan-card {
+.project-card {
     background-color: white;
-    padding: 25px;
+    padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s, box-shadow 0.3s;
-    text-align: left;
-    border-left: 5px solid #004d99; /* Bande latérale thématique */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid; /* La couleur dépendra du statut */
 }
 
-.bilan-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.15);
-}
-
-.bilan-card h3 {
-    color: #004d99;
+.project-card h3 {
     margin-top: 0;
-    font-size: 1.3em;
+    color: #004d99;
+    font-size: 1.4em;
 }
 
-.bilan-card p {
-    font-size: 1em;
-    line-height: 1.4;
+.project-card .description {
     color: #555;
-    min-height: 70px; /* Assure une hauteur minimale pour la cohérence */
+    margin-bottom: 10px;
 }
 
-.bilan-card .value {
-    display: block;
-    font-size: 1.8em;
-    font-weight: 900;
-    color: #d90000; /* Rouge vif pour le montant */
-    margin: 10px 0;
-}
-
-/* Statuts et détails */
-.detail {
-    display: block;
+.project-card .meta {
     font-size: 0.9em;
-    font-weight: bold;
     padding-top: 10px;
     border-top: 1px dashed #eee;
 }
-.status-acheve { 
-    color: #009933; /* Vert foncé pour succès */
-    border-left-color: #009933;
-}
-.status-en-cours { 
-    color: #ff9900; /* Orange pour en cours */
-    border-left-color: #ff9900;
+
+.project-card .montant {
+    font-weight: bold;
+    color: #d90000;
 }
 
-/* Footer */
-footer {
-    background-color: #333;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    margin-top: 40px;
-}
+/* Styles des bordures par Statut */
+.status-Achevé { border-left-color: #009933; } /* Vert pour les réalisations */
+.status-En-cours { border-left-color: #ff9900; } /* Orange pour les chantiers */
+.status-Prévu { border-left-color: #004d99; } /* Bleu pour la planification */
