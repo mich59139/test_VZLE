@@ -1,0 +1,37 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+h1 {
+    color: #004d99; /* Couleur du mouvement Vizille */
+}
+
+/* ATTENTION : Il est crucial de définir une hauteur (height)
+   pour l'élément #map, sinon elle ne s'affichera pas !
+*/
+#map {
+    height: 600px; /* Taille de la carte sur l'écran */
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.popup-content h3 {
+    margin-top: 0;
+    color: #333;
+}
+
+/* Styles optionnels pour les statuts (Achevé/En cours) */
+.status-acheve {
+    color: green;
+    font-weight: bold;
+}
+.status-en-cours {
+    color: orange;
+    font-weight: bold;
+}
+.status-prévu {
+    color: #004d99;
+    font-weight: bold;
+}
