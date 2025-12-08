@@ -1,46 +1,61 @@
-// script.js - Logique de l'application (Version finale et corrigée des ID)
+// script.js
 document.addEventListener('DOMContentLoaded', () => {
-    
-    const cardsContainer = document.getElementById('results-container'); 
-    const filterStatut = document.getElementById('status-navigation'); 
-    const filterTheme = document.getElementById('theme-filter');       
-    const filterAnnee = document.getElementById('annee-filter');       
+    const cardsContainer  = document.getElementById('results-container'); 
+    const filterStatut    = document.getElementById('status-navigation'); 
+    const filterTheme     = document.getElementById('theme-filter');       
+    const filterAnnee     = document.getElementById('annee-filter');       
     const countsContainer = document.getElementById('counts'); 
     
-    // VÉRIFICATION DE LA DISPONIBILITÉ DE LA VARIABLE DE DONNÉES
+    // Vérification de la disponibilité des données
     if (typeof vizilleData === 'undefined') {
-        // C'est ce message que vous avez vu. Si le problème persiste, 
-        // cela confirme que data.js n'a pas réussi à définir vizilleData.
-        console.error("ERREUR CRITIQUE: Le tableau 'vizilleData' n'est pas défini. Vérifiez la structure et le chargement de data.js.");
+        console.error("ERREUR CRITIQUE: 'vizilleData' n'est pas défini. Vérifiez le chargement de data.js et l'ordre des <script> dans index.html.");
         return;
     }
 
-    // --- Fonctions d'aide (Helpers) ---
+    // --- Helpers ---
 
     function populateFilter(selectElement, values) {
         selectElement.innerHTML = '<option value="">Tous</option>';
         const sortedValues = Array.from(values).sort((a, b) => {
-            if (selectElement.id === 'annee-filter') { return b - a; }
-            return a.localeCompare(b);
+            if (selectElement.id === 'annee-filter') { 
+                return b - a; // années décroissantes
+            }
+            return String(a).localeCompare(String(b), 'fr');
         });
         sortedValues.forEach(value => {
             const option = document.createElement('option');
             option.value = value;
-            option.textContent = value.toUpperCase();
+            option.textContent = String(value).toUpperCase(); // OK pour texte + nombres
             selectElement.appendChild(option);
         });
     }
     
     function getStatutClass(statut) {
         switch (statut) {
-            case 'Achevé': case 'RÉALISÉ': return 'statut-acheve';
-            case 'En cours': case 'EN COURS': return 'statut-en-cours';
-            case 'Prévu': case 'PROJET': case 'À FAIRE': return 'statut-prevu';
-            default: return 'statut-inconnu';
+            case 'Achevé':
+            case 'RÉALISÉ':
+                return 'statut-acheve';
+            case 'En cours':
+            case 'EN COURS':
+                return 'statut-en-cours';
+            case 'Prévu':
+            case 'PROJET':
+            case 'À FAIRE':
+                return 'statut-prevu';
+            default:
+                return 'statut-inconnu';
         }
     }
 
-    // --- Rendu des cartes et Mise à jour des compteurs ---
+    // Map entre les boutons et les valeurs réelles dans les données
+    const statutFilterMap = {
+        'all'     : null,        // pas de filtre
+        'realise' : 'RÉALISÉ',
+        'en-cours': 'EN COURS',
+        'projet'  : 'PROJET'
+    };
+
+    // --- Rendu des cartes ---
 
     function renderProjets(projets) {
         cardsContainer.innerHTML = ''; 
@@ -53,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const card = document.createElement('div');
                 card.classList.add('card', getStatutClass(projet.statut));
                 
-                const montantFormatte = (projet.montant > 0) 
+                const montantFormatte = (projet.montant && projet.montant > 0) 
                     ? `Montant : ${new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 }).format(projet.montant)}`
                     : 'Montant : (Non chiffré)';
                 
@@ -62,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.innerHTML = `
                     <div class="card-header">
                         <span class="card-theme">${projet.theme.toUpperCase()}</span>
-                        <span class="card-annee">${projet.annee}</span>
+                        <span class="card-annee">${projet.annee || ''}</span>
                     </div>
                     <h3 class="card-title">${projet.titre}</h3>
                     <p class="card-description">${projet.description}</p>
@@ -76,32 +91,32 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         countsContainer.innerHTML = `
-            <p>Projets Affichés : <span class="count-value">${projets.length}</span></p>
-            <p>Montant Total : <span class="count-value">${new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 }).format(montantTotal)}</span></p>
+            <p>Projets affichés : <span class="count-value">${projets.length}</span></p>
+            <p>Montant total : <span class="count-value">${new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 }).format(montantTotal)}</span></p>
         `;
     }
     
-    // --- Logique de Filtrage ---
+    // --- Logique de filtrage ---
 
     function filterProjets() {
         const selectedTheme = filterTheme.value;
         const selectedAnnee = filterAnnee.value;
         const activeStatusButton = document.querySelector('#status-navigation .status-btn.active-status-btn');
-        const selectedStatut = activeStatusButton ? activeStatusButton.dataset.status : 'all';
+        const selectedStatutKey = activeStatusButton ? activeStatusButton.dataset.status : 'all';
+        const statutFilterValue = statutFilterMap[selectedStatutKey]; // ex: "RÉALISÉ"
 
         const projetsFiltres = vizilleData.filter(projet => {
-            const statutMatch = selectedStatut === 'all' || getStatutClass(projet.statut).includes(selectedStatut.toLowerCase().replace(' ', '-'));
-            const themeMatch = !selectedTheme || projet.theme.toUpperCase() === selectedTheme.toUpperCase();
-            const anneeMatch = !selectedAnnee || projet.annee.toString() === selectedAnnee;
-            
+            const statutMatch = !statutFilterValue || projet.statut === statutFilterValue;
+            const themeMatch  = !selectedTheme || projet.theme === selectedTheme;
+            const anneeMatch  = !selectedAnnee || projet.annee.toString() === selectedAnnee;
             return statutMatch && themeMatch && anneeMatch;
         });
 
         renderProjets(projetsFiltres);
     }
     
-    // --- Gestion des Boutons de Statut ---
-    
+    // --- Boutons de statut ---
+
     filterStatut.addEventListener('click', (event) => {
         if (event.target.classList.contains('status-btn')) {
             document.querySelectorAll('#status-navigation .status-btn').forEach(btn => {
@@ -112,11 +127,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // --- Initialisation de l'application ---
+    // --- Initialisation ---
 
     function initApp() {
-        const uniqueThemes = new Set(vizilleData.map(p => p.theme).filter(t => t));
-        const uniqueAnnees = new Set(vizilleData.map(p => p.annee).filter(a => a));
+        const uniqueThemes = new Set(vizilleData.map(p => p.theme).filter(Boolean));
+        const uniqueAnnees = new Set(vizilleData.map(p => p.annee).filter(a => a)); // ignore 0 ou null
         
         populateFilter(filterTheme, uniqueThemes);
         populateFilter(filterAnnee, uniqueAnnees);
@@ -124,6 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
         filterTheme.addEventListener('change', filterProjets);
         filterAnnee.addEventListener('change', filterProjets);
 
+        // affichage initial : tout
         renderProjets(vizilleData);
     }
 
