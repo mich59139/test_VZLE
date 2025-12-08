@@ -24,9 +24,39 @@ body {
 header {
   background: linear-gradient(135deg, #007bff, #00b7ff);
   color: #fff;
-  text-align: center;
-  padding: 2rem 1rem 1.5rem;
+  padding: 1.5rem 1rem 1rem;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Header content with logo and text */
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header-content .logo {
+  width: 50px;
+  height: auto;
+  flex-shrink: 0;
+}
+
+.header-content .header-text {
+  text-align: center;
+}
+
+.header-content h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.header-content p {
+  margin: 0.25rem 0 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
 }
 
 header h1 {
@@ -49,11 +79,19 @@ main {
 }
 
 /* Statistic cards */
+/*
+ * The statistics section appears directly beneath the header without
+ * overlapping it. Previously, a negative top margin pulled the cards
+ * up into the header, which caused text and cards to overlap on
+ * smaller screens. We remove the negative margin and instead use
+ * regular top spacing so that the header and the cards are clearly
+ * separated.
+ */
 .stats-section {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  margin-top: -2rem;
+  margin-top: 1.5rem;
   margin-bottom: 2rem;
   position: relative;
   z-index: 1;
@@ -135,6 +173,52 @@ main {
 /* Search input styling */
 .search-group input[type="text"] {
   width: 260px;
+}
+
+/* View options (thèmes vs cartes) */
+.view-options {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.view-label {
+  font-weight: 600;
+  color: #444;
+  margin-right: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.view-btn {
+  padding: 0.35rem 0.8rem;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  background: #e9ecef;
+  color: #333;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+
+.view-btn:hover {
+  background: #dee2e6;
+}
+
+.view-btn.active-view-btn {
+  background: #17a2b8;
+  color: #fff;
+  border-color: #17a2b8;
+}
+
+/* Cards container (flat list view) */
+.cards-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
 }
 
 /* Status buttons */

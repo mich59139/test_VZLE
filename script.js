@@ -84,6 +84,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const resetBtn       = document.getElementById('reset-btn');
   const accordionContainer = document.getElementById('accordion-container');
 
+  // Elements for alternative view (cartes)
+  const cardsContainer   = document.getElementById('cards-container');
+  const viewThemeBtn     = document.getElementById('view-theme-btn');
+  const viewCardsBtn     = document.getElementById('view-cards-btn');
+
   // Compute unique themes and years for filter controls
   const uniqueThemes = Array.from(new Set(vizilleData.map(p => p.theme))).filter(Boolean).sort((a, b) => a.localeCompare(b, 'fr'));
   const uniqueYears  = Array.from(new Set(vizilleData.map(p => p.annee).filter(a => a))).sort((a, b) => b - a);
@@ -109,6 +114,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
   populateSelect(themeSelect, uniqueThemes);
   populateSelect(yearSelect, uniqueYears);
+
+  /**
+   * Build the flat cards list from the dataset. Each card uses the same
+   * createProjectCard() as the accordion. This is done once at
+   * initialisation; filtering logic will show/hide cards as needed.
+   */
+  function buildCards() {
+    if (!cardsContainer) return;
+    cardsContainer.innerHTML = '';
+    vizilleData.forEach(item => {
+      const card = createProjectCard(item);
+      cardsContainer.appendChild(card);
+    });
+  }
 
   /**
    * Build a project card element from a data item.
@@ -361,6 +380,38 @@ document.addEventListener('DOMContentLoaded', () => {
     statOngoingEl.textContent  = ongoingVisible;
     statProjectEl.textContent  = projectVisible;
     statBudgetEl.textContent   = new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 }).format(budgetVisible);
+
+    // Also apply filters to flat cards view if present
+    if (cardsContainer) {
+      const cards = cardsContainer.querySelectorAll('.project-card');
+      cards.forEach(card => {
+        const cardStatus = card.dataset.status;
+        const cardTheme  = card.dataset.theme;
+        const cardYear   = card.dataset.year;
+        const titleStr   = card.dataset.title;
+        const descStr    = card.dataset.description;
+        let cardMatches = true;
+        // Status filter
+        if (selectedStatus !== 'all' && cardStatus !== selectedStatus) {
+          cardMatches = false;
+        }
+        // Theme filter
+        if (selectedTheme && cardTheme !== selectedTheme) {
+          cardMatches = false;
+        }
+        // Year filter
+        if (selectedYear && cardYear !== selectedYear) {
+          cardMatches = false;
+        }
+        // Search filter
+        if (query) {
+          if (!(titleStr.includes(query) || descStr.includes(query))) {
+            cardMatches = false;
+          }
+        }
+        card.style.display = cardMatches ? '' : 'none';
+      });
+    }
   }
 
   // Event listeners
@@ -406,8 +457,41 @@ document.addEventListener('DOMContentLoaded', () => {
     applyFilters();
   });
 
+  // Toggle view: themes (accordion) vs cards
+  if (viewThemeBtn && viewCardsBtn) {
+    viewThemeBtn.addEventListener('click', () => {
+      viewThemeBtn.classList.add('active-view-btn');
+      viewCardsBtn.classList.remove('active-view-btn');
+      // Show accordion, hide cards
+      accordionContainer.style.display = '';
+      cardsContainer.style.display = 'none';
+      // Optionally close any open panels when switching
+      const panels = accordionContainer.querySelectorAll('.accordion-panel');
+      panels.forEach(panel => {
+        const header = panel.querySelector('.accordion-header');
+        const body   = panel.querySelector('.accordion-body');
+        if (body.classList.contains('open')) {
+          body.classList.remove('open');
+          body.style.maxHeight = null;
+          header.classList.remove('open');
+        }
+      });
+      applyFilters();
+    });
+    viewCardsBtn.addEventListener('click', () => {
+      viewCardsBtn.classList.add('active-view-btn');
+      viewThemeBtn.classList.remove('active-view-btn');
+      // Hide accordion, show cards
+      accordionContainer.style.display = 'none';
+      cardsContainer.style.display = '';
+      applyFilters();
+    });
+  }
+
   // Build accordion and initialise view
   buildAccordion();
+  // Build the flat cards container
+  buildCards();
   // Initially activate "Tous" button
   const defaultButton = Array.from(statusButtons).find(b => b.dataset.status === 'all');
   if (defaultButton) defaultButton.classList.add('active-status-btn');

@@ -8,8 +8,14 @@
 </head>
 <body>
     <header>
-        <h1>Vizille en Mouvement</h1>
-        <p>Bilan des actions 2020‑2027</p>
+        <div class="header-content">
+            <!-- Logo discret ajouté dans l’en‑tête -->
+            <img src="img/logo.jpeg" alt="Logo Vizille en mouvement" class="logo">
+            <div class="header-text">
+                <h1>Vizille en Mouvement</h1>
+                <p>Bilan des actions 2020‑2027</p>
+            </div>
+        </div>
     </header>
     <main>
         <!-- Résumé statistique -->
@@ -64,8 +70,18 @@
             </div>
         </section>
 
+        <!-- Options de présentation (thèmes ou cartes) -->
+        <section id="view-options" class="view-options">
+            <span class="view-label">Affichage :</span>
+            <button id="view-theme-btn" class="view-btn active-view-btn" data-view="theme">Thèmes</button>
+            <button id="view-cards-btn" class="view-btn" data-view="cards">Cartes</button>
+        </section>
+
         <!-- Conteneur des panneaux (groupés par thème) -->
         <section id="accordion-container" class="accordion-container"></section>
+
+        <!-- Nouvelle vue : conteneur des cartes (masqué par défaut) -->
+        <section id="cards-container" class="cards-container" style="display: none;"></section>
     </main>
     <script src="data.js"></script>
     <script src="script.js"></script>
