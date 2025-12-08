@@ -4,48 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vizille en Mouvement - Bilan des Actions</title>
+    <!-- Feuille de style -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Vizille en Mouvement : Bilan des Actions (2020-2027)</h1>
+        <h1>Vizille en Mouvement : Bilan des Actions (2020‑2027)</h1>
     </header>
 
     <div class="container">
-        
+        <!-- Section filtres et compteurs -->
         <section class="filters-section">
-            <h2>Filtrer les Projets</h2>
-            
-            <div id="status-navigation">
-                <button class="status-btn active-status-btn" data-status="all">Tous</button>
-                <button class="status-btn" data-status="realise">Réalisé</button>
-                <button class="status-btn" data-status="en-cours">En cours</button>
-                <button class="status-btn" data-status="projet">Projet</button>
+            <h2>Filtrer les projets</h2>
+            <div class="controls-row">
+                <div id="status-navigation" class="status-btn-group">
+                    <button class="status-btn active-status-btn" data-status="all">Tous</button>
+                    <button class="status-btn" data-status="realise">Réalisé</button>
+                    <button class="status-btn" data-status="en-cours">En cours</button>
+                    <button class="status-btn" data-status="projet">Projet</button>
+                </div>
+                <button id="reset-filters" class="reset-btn">Réinitialiser</button>
             </div>
-            
-            <div class="filters-row" style="margin-top: 20px;">
+            <div class="filters-row">
                 <div class="filter-group">
-                    <label for="theme-filter">Filtrer par Thème :</label>
+                    <label for="theme-filter">Thème :</label>
                     <select id="theme-filter"></select>
                 </div>
-                
                 <div class="filter-group">
-                    <label for="annee-filter">Filtrer par Année :</label>
+                    <label for="annee-filter">Année :</label>
                     <select id="annee-filter"></select>
                 </div>
             </div>
-
             <div id="counts"></div>
         </section>
 
+        <!-- Section cartes -->
         <section>
-            <h2>Liste des Projets</h2>
+            <h2>Liste des projets</h2>
             <div id="results-container"></div>
         </section>
-        
     </div>
 
-    <!-- IMPORTANT : ordre des scripts -->
+    <!-- Chargement des données puis du script -->
     <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
