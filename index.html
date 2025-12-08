@@ -3,49 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vizille en Mouvement - Bilan des Actions</title>
-    <!-- Feuille de style -->
+    <title>Vizille en Mouvement – Tableau de bord</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Vizille en Mouvement : Bilan des Actions (2020‑2027)</h1>
+        <h1>Vizille en Mouvement</h1>
+        <p>Bilan des actions 2020‑2027</p>
     </header>
+    <main>
+        <!-- Résumé statistique -->
+        <section id="stats" class="stats-section">
+            <div class="stat-card">
+                <h3>Total des projets</h3>
+                <p id="stat-total" class="stat-value">0</p>
+            </div>
+            <div class="stat-card realised">
+                <h3>Réalisés</h3>
+                <p id="stat-realised" class="stat-value">0</p>
+            </div>
+            <div class="stat-card ongoing">
+                <h3>En cours</h3>
+                <p id="stat-ongoing" class="stat-value">0</p>
+            </div>
+            <div class="stat-card project">
+                <h3>Projets</h3>
+                <p id="stat-project" class="stat-value">0</p>
+            </div>
+            <div class="stat-card budget">
+                <h3>Budget total</h3>
+                <p id="stat-budget" class="stat-value">0 €</p>
+            </div>
+        </section>
 
-    <div class="container">
-        <!-- Section filtres et compteurs -->
-        <section class="filters-section">
-            <h2>Filtrer les projets</h2>
-            <div class="controls-row">
-                <div id="status-navigation" class="status-btn-group">
+        <!-- Filtres -->
+        <section id="filters" class="filters-section">
+            <div class="filter-group">
+                <label>Statut&nbsp;:</label>
+                <div id="status-buttons" class="status-buttons">
                     <button class="status-btn active-status-btn" data-status="all">Tous</button>
-                    <button class="status-btn" data-status="realise">Réalisé</button>
-                    <button class="status-btn" data-status="en-cours">En cours</button>
-                    <button class="status-btn" data-status="projet">Projet</button>
-                </div>
-                <button id="reset-filters" class="reset-btn">Réinitialiser</button>
-            </div>
-            <div class="filters-row">
-                <div class="filter-group">
-                    <label for="theme-filter">Thème :</label>
-                    <select id="theme-filter"></select>
-                </div>
-                <div class="filter-group">
-                    <label for="annee-filter">Année :</label>
-                    <select id="annee-filter"></select>
+                    <button class="status-btn" data-status="RÉALISÉ">Réalisé</button>
+                    <button class="status-btn" data-status="EN COURS">En cours</button>
+                    <button class="status-btn" data-status="PROJET">Projet</button>
                 </div>
             </div>
-            <div id="counts"></div>
+            <div class="filter-group">
+                <label for="theme-filter">Thème&nbsp;:</label>
+                <select id="theme-filter"></select>
+            </div>
+            <div class="filter-group">
+                <label for="year-filter">Année&nbsp;:</label>
+                <select id="year-filter"></select>
+            </div>
+            <div class="filter-group search-group">
+                <label for="search-input">Recherche&nbsp;:</label>
+                <input type="text" id="search-input" placeholder="Rechercher un projet...">
+            </div>
+            <div class="filter-group">
+                <button id="reset-btn" class="reset-btn">Réinitialiser</button>
+            </div>
         </section>
 
-        <!-- Section cartes -->
-        <section>
-            <h2>Liste des projets</h2>
-            <div id="results-container"></div>
-        </section>
-    </div>
-
-    <!-- Chargement des données puis du script -->
+        <!-- Conteneur des panneaux (groupés par thème) -->
+        <section id="accordion-container" class="accordion-container"></section>
+    </main>
     <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
