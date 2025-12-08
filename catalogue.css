@@ -1,0 +1,280 @@
+/*
+ * Styles pour la page « Catalogue des Projets ». Inspiré du
+ * catalogue AHPV (pages beige et éléments arrondis). Les couleurs
+ * douces facilitent la lecture et structurent les informations.
+ */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f2ead7; /* beige clair */
+    color: #333;
+    line-height: 1.5;
+}
+
+/* En‑tête principal */
+.catalog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(180deg, #f8f0e0 0%, #eedec2 100%);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid #e0d5bc;
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo-small {
+    width: 48px;
+    height: auto;
+}
+
+.header-titles h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #4b381a;
+}
+
+.header-titles p {
+    margin: 0.25rem 0 0;
+    font-size: 0.85rem;
+    color: #6b553a;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background-color: #d4bea1;
+    color: #4b381a;
+}
+
+.badge-count {
+    background-color: #c7aa89;
+}
+
+/* Section mise à jour */
+.update-form-section {
+    margin: 1rem auto;
+    padding: 1rem 1.5rem;
+    max-width: 1000px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.update-form-section h2 {
+    margin-top: 0;
+    font-size: 1.3rem;
+    color: #4b381a;
+}
+
+.form-group {
+    margin-bottom: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.form-group label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #6b553a;
+}
+
+.form-group input,
+.form-group textarea {
+    border: 1px solid #d6c8b1;
+    border-radius: 4px;
+    padding: 0.5rem;
+    font-size: 1rem;
+    width: 100%;
+}
+
+.btn-submit {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background-color: #8f734a;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.btn-submit:hover {
+    background-color: #7a603f;
+}
+
+.form-note {
+    font-size: 0.8rem;
+    color: #7c6349;
+    margin-top: 0.5rem;
+}
+
+/* Section filtres */
+.filters-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: flex-start;
+    align-items: flex-end;
+    margin: 1rem auto;
+    max-width: 1000px;
+    padding: 1rem 1.5rem;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.filter-group label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #6b553a;
+}
+
+.filter-group select,
+.filter-group input {
+    border: 1px solid #d6c8b1;
+    border-radius: 4px;
+    padding: 0.45rem 0.6rem;
+    font-size: 0.95rem;
+    min-width: 180px;
+}
+
+.btn-reset {
+    padding: 0.45rem 0.8rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    background-color: #b09a7b;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    height: 40px;
+    align-self: flex-end;
+    margin-left: 1rem;
+    transition: background-color 0.2s;
+}
+.btn-reset:hover {
+    background-color: #9d876d;
+}
+
+/* Tableau */
+.table-section {
+    margin: 1rem auto 2rem;
+    max-width: 1000px;
+    overflow-x: auto;
+}
+
+#projects-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+#projects-table th,
+#projects-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #eee0c8;
+    text-align: left;
+    font-size: 0.95rem;
+}
+
+#projects-table th {
+    background-color: #efe1c6;
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+}
+
+#projects-table th::after {
+    content: '\25B4'; /* triangle pointing up */
+    font-size: 0.6rem;
+    position: absolute;
+    right: 0.5rem;
+    color: #7c6349;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+#projects-table th.sorted-asc::after,
+#projects-table th.sorted-desc::after {
+    opacity: 1;
+}
+
+#projects-table th.sorted-asc::after {
+    content: '\25B4'; /* up */
+}
+
+#projects-table th.sorted-desc::after {
+    content: '\25BE'; /* down */
+}
+
+#projects-table tbody tr:nth-child(odd) {
+    background-color: #faf4e7;
+}
+
+#projects-table tbody tr:hover {
+    background-color: #f0e6d2;
+}
+
+#projects-table .statut {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: #fff;
+    padding: 2px 6px;
+    border-radius: 4px;
+}
+
+/* Couleurs des statuts */
+.statut-realise {
+    background-color: #28a745;
+}
+.statut-en-cours {
+    background-color: #ffc107;
+    color: #333;
+}
+.statut-projet {
+    background-color: #dc3545;
+}
+
+/* Réactivité */
+@media (max-width: 600px) {
+    .filters-section {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .btn-reset {
+        margin-left: 0;
+        align-self: stretch;
+    }
+    .header-right {
+        margin-top: 0.5rem;
+    }
+}

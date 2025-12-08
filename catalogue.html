@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogue des Projets – Vizille en Mouvement</title>
+    <link rel="stylesheet" href="catalogue.css">
+</head>
+<body>
+    <!-- En-tête du catalogue -->
+    <header class="catalog-header">
+        <div class="header-left">
+            <img src="img/logo.jpeg" alt="Logo Vizille" class="logo-small">
+            <div class="header-titles">
+                <h1>Catalogue des Projets</h1>
+                <p>Vizille en Mouvement&nbsp;: synthèse des actions 2020‑2027</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <span class="badge">Fichier&nbsp;:</span>
+            <span id="project-count" class="badge badge-count">0 projets</span>
+        </div>
+    </header>
+
+    <!-- Formulaire d'ajout/mise à jour -->
+    <section class="update-form-section">
+        <h2>Proposer une mise à jour</h2>
+        <!--
+            Pour connecter ce formulaire à Formspree et recevoir les propositions par e‑mail,
+            définissez l'attribut "action" avec l'URL de votre endpoint Formspree et
+            utilisez la méthode POST. Chaque champ doit avoir un attribut "name".
+            Voici un exemple de configuration :
+            action="https://formspree.io/f/xjknewpy" method="POST"
+        -->
+        <form id="update-form" action="https://formspree.io/f/xjknewpy" method="POST">
+            <div class="form-group">
+                <label for="token-input">Token d'accès&nbsp;:</label>
+                <input type="password" id="token-input" name="token" placeholder="Votre token (optionnel)">
+            </div>
+            <div class="form-group">
+                <label for="update-text">Contenu de la mise à jour&nbsp;:</label>
+                <textarea id="update-text" name="message" rows="4" placeholder="Décrivez votre nouvelle action, modification ou correction..." required></textarea>
+            </div>
+            <button type="submit" class="btn-submit">Envoyer la proposition</button>
+        </form>
+        <p class="form-note">Les propositions envoyées via ce formulaire seront redirigées vers votre boîte e‑mail grâce à Formspree.</p>
+    </section>
+
+    <!-- Filtres -->
+    <section class="filters-section">
+        <div class="filter-group">
+            <label for="year-filter">Année&nbsp;:</label>
+            <select id="year-filter"></select>
+        </div>
+        <div class="filter-group">
+            <label for="theme-filter">Thème&nbsp;:</label>
+            <select id="theme-filter"></select>
+        </div>
+        <div class="filter-group search-group">
+            <label for="search-input">Recherche&nbsp;:</label>
+            <input type="text" id="search-input" placeholder="Mot‑clé dans le titre, le thème, etc.">
+        </div>
+        <div class="filter-group">
+            <button id="reset-filters" class="btn-reset">Réinitialiser</button>
+        </div>
+    </section>
+
+    <!-- Tableau des projets -->
+    <section class="table-section">
+        <table id="projects-table">
+            <thead>
+                <tr>
+                    <th data-sort="annee">Année</th>
+                    <th data-sort="theme">Thème</th>
+                    <th data-sort="statut">Statut</th>
+                    <th data-sort="titre">Titre</th>
+                    <th data-sort="description">Description</th>
+                    <th data-sort="montant">Montant</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </section>
+
+    <script src="data.js"></script>
+    <script src="catalogue.js"></script>
+</body>
+</html>
