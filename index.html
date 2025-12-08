@@ -1,6 +1,54 @@
-<script>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vizille en Mouvement - Bilan des Actions</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Vizille en Mouvement : Bilan des Actions (2020-2027)</h1>
+    </header>
+
+    <div class="container">
+        
+        <section class="filters-section">
+            <h2>Filtrer les Projets</h2>
+            
+            <div id="status-navigation">
+                <button class="status-btn active-status-btn" data-status="all">Tous</button>
+                <button class="status-btn" data-status="realise">Réalisé</button>
+                <button class="status-btn" data-status="en-cours">En cours</button>
+                <button class="status-btn" data-status="projet">Projet</button>
+            </div>
+            
+            <div class="filters-row" style="margin-top: 20px;">
+                <div class="filter-group">
+                    <label for="theme-filter">Filtrer par Thème :</label>
+                    <select id="theme-filter"></select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="annee-filter">Filtrer par Année :</label>
+                    <select id="annee-filter"></select>
+                </div>
+            </div>
+
+            <div id="counts"></div>
+        </section>
+
+        <section>
+            <h2>Liste des Projets</h2>
+            <div id="results-container">
+                </div>
+        </section>
+        
+    </div>
+
+    <script>
     // ----------------------------------------------------
-    // BLOC 1/2 : LES DONNÉES (vizilleData - Vient de data.js)
+    // BLOC 1/2 : LES DONNÉES (vizilleData)
     // ----------------------------------------------------
     const vizilleData = [
       { theme: "SANTÉ", statut: "RÉALISÉ", titre: "Réouverture du centre d'imagerie médicale", description: "157 rue Colonel Manhès, matériel dernière génération", annee: 2025, montant: 0 },
@@ -133,7 +181,7 @@
     ];
 
     // ----------------------------------------------------
-    // BLOC 2/2 : LA LOGIQUE (Vient de script.js)
+    // BLOC 2/2 : LA LOGIQUE 
     // ----------------------------------------------------
     document.addEventListener('DOMContentLoaded', () => {
         
@@ -142,8 +190,6 @@
         const filterTheme = document.getElementById('theme-filter');       
         const filterAnnee = document.getElementById('annee-filter');       
         const countsContainer = document.getElementById('counts'); 
-        
-        // La vérification vizilleData est maintenant inutile car les données sont dans ce même bloc.
         
         function populateFilter(selectElement, values) {
             selectElement.innerHTML = '<option value="">Tous</option>';
@@ -244,6 +290,7 @@
             filterTheme.addEventListener('change', filterProjets);
             filterAnnee.addEventListener('change', filterProjets);
 
+            // Le filtre initial affiche tous les projets
             renderProjets(vizilleData);
         }
 
