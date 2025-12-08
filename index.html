@@ -83,8 +83,9 @@
             <!-- Ce formulaire envoie vos propositions à l'adresse configurée sur Formspree -->
             <form action="https://formspree.io/f/xjknewpy" method="POST" class="update-form">
                 <div class="form-group">
-                    <label for="token">Token :</label>
-                    <input type="text" id="token" name="token" placeholder="Votre token d'accès" required>
+                    <label for="password">Mot de passe (optionnel)&nbsp;:</label>
+                    <!-- Champ de mot de passe non obligatoire pour contrôler les envois -->
+                    <input type="password" id="password" name="password" placeholder="Mot de passe pour validation">
                 </div>
                 <div class="form-group">
                     <label for="message">Description de la proposition :</label>
