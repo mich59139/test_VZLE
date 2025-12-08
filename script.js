@@ -392,6 +392,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // Activate 'all'
     const allButton = Array.from(statusButtons).find(b => b.dataset.status === 'all');
     if (allButton) allButton.classList.add('active-status-btn');
+    // Close any open accordion panels
+    const panels = accordionContainer.querySelectorAll('.accordion-panel');
+    panels.forEach(panel => {
+      const header = panel.querySelector('.accordion-header');
+      const body   = panel.querySelector('.accordion-body');
+      if (body.classList.contains('open')) {
+        body.classList.remove('open');
+        body.style.maxHeight = null;
+      }
+      header.classList.remove('open');
+    });
     applyFilters();
   });
 
