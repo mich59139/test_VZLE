@@ -1,157 +1,271 @@
+/* ----------------------------------------------------------------
+ * 1. STRUCTURE GÉNÉRALE
+ * ---------------------------------------------------------------- */
+
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #e9ecef; /* Fond d'écran gris clair */
+    background-color: #f4f4f9;
     color: #333;
-    /* Toutes les lignes de blason/logo ont été retirées. */
-}
-
-#dashboard-container {
-    max-width: 1400px;
-    margin: 0 auto;
-    
-    /* FOND BLANC ENTIÈREMENT OPAQUE (Lisibilité garantie) */
-    background-color: #ffffff; 
-    
-    padding: 20px;
-    min-height: 100vh;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
 
 header {
-    background-color: #445566; /* Gris Ardoise */
+    background: #007bff;
     color: white;
-    padding: 30px 20px;
+    padding: 20px 0;
     text-align: center;
-    margin-bottom: 20px;
-    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-header h1 {
-    font-weight: 900;
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 0 10px;
 }
 
-/* --- Navigation par Statut (Boutons) --- */
+/* ----------------------------------------------------------------
+ * 2. FILTRES & STATUTS (Navigation)
+ * ---------------------------------------------------------------- */
+
+.filters-section {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 30px;
+}
+
+.filters-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+.filter-group select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 200px; /* Taille fixe pour les filtres Select */
+}
+
+/* Styles pour les boutons de statut */
 #status-navigation {
     display: flex;
-    justify-content: center;
     gap: 10px;
-    margin-bottom: 20px;
     flex-wrap: wrap;
-    padding: 15px;
-    background-color: #f0f0f0;
-    border-radius: 5px;
 }
 
 .status-btn {
     padding: 10px 15px;
     border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #fff;
+    border-radius: 20px;
+    background-color: #f0f0f0;
     cursor: pointer;
+    transition: all 0.2s;
     font-weight: bold;
-    transition: background-color 0.3s, color 0.3s, transform 0.2s;
-    white-space: nowrap;
+    font-size: 14px;
+    text-transform: uppercase;
 }
 
 .status-btn:hover {
     background-color: #e0e0e0;
+    border-color: #aaa;
 }
 
-.active-status-btn {
-    background-color: #445566; /* Gris Ardoise */
+/* Styles spécifiques aux statuts (doivent correspondre aux classes JS) */
+.status-btn[data-status="all"].active-status-btn {
+    background-color: #007bff;
     color: white;
-    border-color: #445566;
+    border-color: #007bff;
+}
+.status-btn[data-status="realise"].active-status-btn {
+    background-color: #28a745; /* Vert pour Réalisé */
+    color: white;
+    border-color: #28a745;
+}
+.status-btn[data-status="en-cours"].active-status-btn {
+    background-color: #ffc107; /* Jaune/Orange pour En Cours */
+    color: #333;
+    border-color: #ffc107;
+}
+.status-btn[data-status="projet"].active-status-btn {
+    background-color: #dc3545; /* Rouge pour Projet */
+    color: white;
+    border-color: #dc3545;
 }
 
-.active-status-btn:hover {
-    background-color: #313d48;
-}
-
-/* --- Filtres Secondaires et Compteur --- */
-#secondary-filters {
-    display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin-bottom: 30px;
-    flex-wrap: wrap;
-}
-
-#secondary-filters select {
-    padding: 10px 15px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    font-size: 1em;
-}
+/* ----------------------------------------------------------------
+ * 3. COMPTEURS ET RÉSULTATS
+ * ---------------------------------------------------------------- */
 
 #counts {
-    background-color: #6B8E23; /* Vert Olive */
-    color: white;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-weight: bold;
     display: flex;
-    align-items: center;
-    min-width: 200px;
-    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+    font-size: 1.1em;
+    font-weight: bold;
 }
 
-/* --- Résultats (Grille) --- */
+.count-value {
+    color: #007bff;
+    font-size: 1.2em;
+}
+
+/* Conteneur des cartes */
 #results-container {
     display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    margin-top: 20px;
 }
 
-.project-card {
-    background-color: white;
-    padding: 20px;
+.no-results {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px;
+    font-size: 1.2em;
+    color: #777;
+    background: #fff;
     border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* ----------------------------------------------------------------
+ * 4. STYLES DE CARTE (Card)
+ * ---------------------------------------------------------------- */
+
+.card {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     border-left: 5px solid;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    opacity: 0;
-    transform: translateY(20px);
 }
 
-/* Effet de soulèvement au survol (le "bondissement") */
-.project-card:hover {
+.card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
 }
 
-/* Keyframes pour l'animation d'apparition */
-@keyframes fadeInSlide {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.project-card h3 {
-    margin-top: 0;
-    color: #445566; /* Gris Ardoise */
-    font-size: 1.4em;
-}
-
-.project-card .description {
-    color: #555;
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 10px;
 }
 
-.project-card .meta {
+.card-theme {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #007bff;
+    background: #e9f5ff;
+    padding: 4px 8px;
+    border-radius: 4px;
+}
+
+.card-annee {
     font-size: 0.9em;
+    font-weight: bold;
+    color: #666;
+}
+
+.card-title {
+    font-size: 1.3em;
+    color: #333;
+    margin: 5px 0 10px 0;
+    line-height: 1.2;
+}
+
+.card-description {
+    font-size: 1em;
+    color: #666;
+    flex-grow: 1; /* Pousse le footer vers le bas */
+}
+
+.card-footer {
+    margin-top: 15px;
     padding-top: 10px;
     border-top: 1px dashed #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
 }
 
-.project-card .montant {
+.card-statut {
+    padding: 4px 8px;
+    border-radius: 4px;
     font-weight: bold;
-    color: #6B8E23; /* Vert Olive */
+    color: white;
 }
 
-/* Styles des bordures par Statut */
-.status-Achevé { border-left-color: #009933; }
-.status-En-cours { border-left-color: #ff9900; }
-.status-Prévu { border-left-color: #445566; }
+/* Couleurs des bordures de carte et des statuts (doivent correspondre aux classes JS) */
+.statut-acheve {
+    border-color: #28a745; /* Vert */
+}
+.statut-acheve .card-statut {
+    background-color: #28a745;
+}
+
+.statut-en-cours {
+    border-color: #ffc107; /* Jaune/Orange */
+}
+.statut-en-cours .card-statut {
+    background-color: #ffc107;
+    color: #333;
+}
+
+.statut-prevu {
+    border-color: #dc3545; /* Rouge */
+}
+.statut-prevu .card-statut {
+    background-color: #dc3545;
+}
+
+.card-montant {
+    color: #555;
+    font-style: italic;
+}
+
+/* ----------------------------------------------------------------
+ * 5. MEDIA QUERIES (pour les mobiles)
+ * ---------------------------------------------------------------- */
+
+@media (max-width: 768px) {
+    .filters-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .filter-group select {
+        width: 100%;
+    }
+    #status-navigation {
+        justify-content: center;
+    }
+    #counts {
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+    .card-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+}
