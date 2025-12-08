@@ -1,50 +1,254 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vizille en Mouvement : Dashboard Thématique</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
-    
-    <link rel="icon" href="favicon.ico" type="image/x-icon">
-    
-</head>
-<body>
+<script>
+    // ----------------------------------------------------
+    // BLOC 1/2 : LES DONNÉES (vizilleData - Vient de data.js)
+    // ----------------------------------------------------
+    const vizilleData = [
+      { theme: "SANTÉ", statut: "RÉALISÉ", titre: "Réouverture du centre d'imagerie médicale", description: "157 rue Colonel Manhès, matériel dernière génération", annee: 2025, montant: 0 },
+      { theme: "SANTÉ", statut: "RÉALISÉ", titre: "Plan canicule annuel", description: "Appels quotidiens personnes isolées, piscine gratuite en vigilance rouge", annee: 2020, montant: 0 },
+      { theme: "SANTÉ", statut: "EN COURS", titre: "Maison de santé pluriprofessionnelle", description: "3 sites identifiés, choix du site mars 2025, partenariat SPL Isère Aménagement voté", annee: 2024, montant: 0 },
+      { theme: "SANTÉ", statut: "PROJET", titre: "Ouverture de la Maison de santé", description: "Mise en service de la structure pluridisciplinaire", annee: 2027, montant: 0 },
+      { theme: "PETITE ENFANCE & ÉDUCATION", statut: "RÉALISÉ", titre: "Crèche Les Petits Drôles rénovée", description: "Capacité de 26 à 30 enfants, isolation améliorée, toiture refaite", annee: 2024, montant: 0 },
+      { theme: "PETITE ENFANCE & ÉDUCATION", statut: "RÉALISÉ", titre: "Cour école Jean Jaurès", description: "Cour désimperméabilisée et végétalisée", annee: 2023, montant: 0 },
+      { theme: "PETITE ENFANCE & ÉDUCATION", statut: "RÉALISÉ", titre: "Crèche du Péage", description: "Rénovation énergétique complète", annee: 2024, montant: 0 },
+      { theme: "PETITE ENFANCE & ÉDUCATION", statut: "RÉALISÉ", titre: "Cour école Paul Langevin", description: "1600 m² désimperméabilisés, 20 arbres plantés, 296000 € de travaux", annee: 2025, montant: 296000 },
+      { theme: "PETITE ENFANCE & ÉDUCATION", statut: "RÉALISÉ", titre: "Menuiseries école du Château", description: "Menuiseries remplacées", annee: 2024, montant: 0 },
+      { theme: "PETITE ENFANCE & ÉDUCATION", statut: "RÉALISÉ", titre: "Rénovation écoles été 2025", description: "Sanitaires, peinture, stores, interphones pour 105288 €", annee: 2025, montant: 105288 },
+      { theme: "PETITE ENFANCE & ÉDUCATION", statut: "RÉALISÉ", titre: "Rencontres intergénérationnelles", description: "Partenariat SICCE / EHPAD / Résidence La Romanche", annee: 2024, montant: 0 },
+      { theme: "INFRASTRUCTURES & ÉQUIPEMENTS PUBLICS", statut: "RÉALISÉ", titre: "Parking Tissages", description: "120 places gratuites, vidéoprotection", annee: 2025, montant: 0 },
+      { theme: "INFRASTRUCTURES & ÉQUIPEMENTS PUBLICS", statut: "RÉALISÉ", titre: "EHPAD Les Écrins", description: "Rénovation complète", annee: 2019, montant: 0 },
+      { theme: "INFRASTRUCTURES & ÉQUIPEMENTS PUBLICS", statut: "RÉALISÉ", titre: "Chapelle du Péage", description: "Acquisition par la commune, patrimoine fin XIXe, 94500 €", annee: 2025, montant: 94500 },
+      { theme: "INFRASTRUCTURES & ÉQUIPEMENTS PUBLICS", statut: "RÉALISÉ", titre: "Cimetière", description: "Engazonnement des allées, nouveau sanitaire", annee: 2025, montant: 0 },
+      { theme: "INFRASTRUCTURES & ÉQUIPEMENTS PUBLICS", statut: "RÉALISÉ", titre: "Giratoire Muzet", description: "Sécurisation des passages piétons", annee: 2025, montant: 0 },
+      { theme: "INFRASTRUCTURES & ÉQUIPEMENTS PUBLICS", statut: "RÉALISÉ", titre: "Gare routière du Péage", description: "Gare achevée", annee: 2025, montant: 0 },
+      { theme: "INFRASTRUCTURES & ÉQUIPEMENTS PUBLICS", statut: "RÉALISÉ", titre: "Terminus bus ligne 23 (Péage)", description: "Abris, quais, végétalisation, 78 courses/jour", annee: 2025, montant: 0 },
+      { theme: "INFRASTRUCTURES & ÉQUIPEMENTS PUBLICS", statut: "RÉALISÉ", titre: "Place Stalingrad", description: "Réaménagement complet", annee: 2025, montant: 0 },
+      { theme: "INFRASTRUCTURES & ÉQUIPEMENTS PUBLICS", statut: "RÉALISÉ", titre: "Stade municipal", description: "300 m de mains courantes", annee: 2024, montant: 0 },
+      { theme: "INFRASTRUCTURES & ÉQUIPEMENTS PUBLICS", statut: "RÉALISÉ", titre: "Pose 1ère pierre site Alliance Textile", description: "28 logements + magasin Netto", annee: 2024, montant: 0 },
+      { theme: "INFRASTRUCTURES & ÉQUIPEMENTS PUBLICS", statut: "EN COURS", titre: "Rue Général de Gaulle", description: "Budget 917200 €, phase finale place église → rue Carnot", annee: 2024, montant: 917200 },
+      { theme: "INFRASTRUCTURES & ÉQUIPEMENTS PUBLICS", statut: "EN COURS", titre: "Travaux d'embellissement centre-ville", description: "Béton désactivé, pavés granit, végétalisation", annee: 2025, montant: 0 },
+      { theme: "INFRASTRUCTURES & ÉQUIPEMENTS PUBLICS", statut: "PROJET", titre: "Square Révolution", description: "Rénovation et végétalisation (Plan Canopée)", annee: 2025, montant: 0 },
+      { theme: "INFRASTRUCTURES & ÉQUIPEMENTS PUBLICS", statut: "PROJET", titre: "Déplacement Centre technique municipal", description: "Nouveau site, budget 544700 €", annee: 2025, montant: 544700 },
+      { theme: "INFRASTRUCTURES & ÉQUIPEMENTS PUBLICS", statut: "PROJET", titre: "Livraison Netto + 28 logements (Alliance)", description: "Programme mixte commerces / logements", annee: 2026, montant: 0 },
+      { theme: "ENVIRONNEMENT & TRANSITION ÉCOLOGIQUE", statut: "RÉALISÉ", titre: "Plan Climat Air Énergie", description: "Plan adopté, plus de 200 actions concrètes", annee: 2021, montant: 0 },
+      { theme: "ENVIRONNEMENT & TRANSITION ÉCOLOGIQUE", statut: "RÉALISÉ", titre: "Éclairage public – extinction nocturne", description: "Extinction 23h-5h, -51% consommation 2022-2024", annee: 2022, montant: 0 },
+      { theme: "ENVIRONNEMENT & TRANSITION ÉCOLOGIQUE", statut: "RÉALISÉ", titre: "Végétalisation de la commune", description: "+100 arbres plantés", annee: 2020, montant: 0 },
+      { theme: "ENVIRONNEMENT & TRANSITION ÉCOLOGIQUE", statut: "RÉALISÉ", titre: "Forêt communale", description: "240 chênes + 60 érables + ~300 plants sur 1 ha près du Belvédère", annee: 2024, montant: 0 },
+      { theme: "ENVIRONNEMENT & TRANSITION ÉCOLOGIQUE", statut: "RÉALISÉ", titre: "Fontaine place du Centenaire", description: "Remise en eau, étanchéité refaite", annee: 2025, montant: 0 },
+      { theme: "ENVIRONNEMENT & TRANSITION ÉCOLOGIQUE", statut: "RÉALISÉ", titre: "Compostage de quartier", description: "3,3 tonnes compostées en 14 mois, 10 sites", annee: 2024, montant: 0 },
+      { theme: "ENVIRONNEMENT & TRANSITION ÉCOLOGIQUE", statut: "RÉALISÉ", titre: "Bornes textiles", description: "4 nouveaux conteneurs installés", annee: 2025, montant: 0 },
+      { theme: "ENVIRONNEMENT & TRANSITION ÉCOLOGIQUE", statut: "RÉALISÉ", titre: "Haie de l'étang du Plan", description: "Haie plantée avec la LPO, nichoirs à oiseaux", annee: 2025, montant: 0 },
+      { theme: "ENVIRONNEMENT & TRANSITION ÉCOLOGIQUE", statut: "RÉALISÉ", titre: "Chargée de mission environnement", description: "Recrutement à mi-temps", annee: 2024, montant: 0 },
+      { theme: "ENVIRONNEMENT & TRANSITION ÉCOLOGIQUE", statut: "RÉALISÉ", titre: "Interdiction foyers ouverts + Prime Air Bois", description: "Aide jusqu'à 2000 €, sur la Métropole", annee: 2024, montant: 0 },
+      { theme: "ENVIRONNEMENT & TRANSITION ÉCOLOGIQUE", statut: "RÉALISÉ", titre: "Qualité de l'air agglomération", description: "-50% de pollution atmosphérique", annee: 2024, montant: 0 },
+      { theme: "ENVIRONNEMENT & TRANSITION ÉCOLOGIQUE", statut: "EN COURS", titre: "GTC bâtiments (Gestion Technique Centralisée)", description: "14 équipements suivis", annee: 2025, montant: 0 },
+      { theme: "ENVIRONNEMENT & TRANSITION ÉCOLOGIQUE", statut: "PROJET", titre: "Chaufferie bois Chantefeuille", description: "Réseau de chaleur nord, -75% émissions CO2", annee: 2027, montant: 0 },
+      { theme: "ENVIRONNEMENT & TRANSITION ÉCOLOGIQUE", statut: "PROJET", titre: "Objectif énergie bâtiments publics", description: "-10% de consommation", annee: 2027, montant: 0 },
+      { theme: "SÉCURITÉ & TRANQUILLITÉ PUBLIQUE", statut: "RÉALISÉ", titre: "1ère adjointe à la tranquillité publique", description: "Saïda Berriche, première dans l'histoire de Vizille", annee: 2020, montant: 0 },
+      { theme: "SÉCURITÉ & TRANQUILLITÉ PUBLIQUE", statut: "RÉALISÉ", titre: "Vidéoprotection", description: "27 caméras, budget 223623 €", annee: 2020, montant: 223623 },
+      { theme: "SÉCURITÉ & TRANQUILLITÉ PUBLIQUE", statut: "RÉALISÉ", titre: "Dispositif Participation citoyenne", description: "Protocole signé, 12 habitants référents sur 7 secteurs", annee: 2024, montant: 0 },
+      { theme: "SÉCURITÉ & TRANQUILLITÉ PUBLIQUE", statut: "RÉALISÉ", titre: "Recrutement 2e policière municipale", description: "Renfort des effectifs", annee: 2025, montant: 0 },
+      { theme: "SÉCURITÉ & TRANQUILLITÉ PUBLIQUE", statut: "RÉALISÉ", titre: "Nouveau véhicule de patrouille", description: "Acquisition pour la police municipale", annee: 2025, montant: 0 },
+      { theme: "SÉCURITÉ & TRANQUILLITÉ PUBLIQUE", statut: "RÉALISÉ", titre: "Nouvelle capitaine de gendarmerie", description: "Alexandrine Veyret, 34 gendarmes", annee: 2025, montant: 0 },
+      { theme: "SÉCURITÉ & TRANQUILLITÉ PUBLIQUE", statut: "EN COURS", titre: "Recrutement 3e policier municipal", description: "Poste créé au conseil municipal", annee: 2025, montant: 0 },
+      { theme: "COMMERCE & ÉCONOMIE", statut: "RÉALISÉ", titre: "Diagnostic commerces", description: "145 cellules commerciales recensées", annee: 2020, montant: 0 },
+      { theme: "COMMERCE & ÉCONOMIE", statut: "RÉALISÉ", titre: "Librairie La Page d'accueil", description: "Ouverture via dispositif Inovaction", annee: 2023, montant: 0 },
+      { theme: "COMMERCE & ÉCONOMIE", statut: "RÉALISÉ", titre: "Fromagerie des Copains", description: "Ouverture rue Général de Gaulle", annee: 2025, montant: 0 },
+      { theme: "COMMERCE & ÉCONOMIE", statut: "RÉALISÉ", titre: "Houmous & Curry", description: "Ouverture au 52 rue Jean Jaurès", annee: 2025, montant: 0 },
+      { theme: "COMMERCE & ÉCONOMIE", statut: "RÉALISÉ", titre: "Alex Coiffure", description: "Ouverture au 76 av. Aristide Briand", annee: 2025, montant: 0 },
+      { theme: "COMMERCE & ÉCONOMIE", statut: "RÉALISÉ", titre: "Neema Élégance", description: "Ouverture au 246 rue Général de Gaulle", annee: 2025, montant: 0 },
+      { theme: "COMMERCE & ÉCONOMIE", statut: "RÉALISÉ", titre: "Magasin pédagogique La Fée des Jouets", description: "Projet du lycée, magasin inauguré", annee: 2025, montant: 0 },
+      { theme: "COMMERCE & ÉCONOMIE", statut: "RÉALISÉ", titre: "Hytech Valley", description: "Association 20+ industriels sud Métropole, 6000 collaborateurs", annee: 2024, montant: 0 },
+      { theme: "COMMERCE & ÉCONOMIE", statut: "RÉALISÉ", titre: "Nouvelles entreprises", description: "Alpesecotech, Cabinet psychologie Reynier/Ramus, L'Atelier Carrosserie", annee: 2025, montant: 0 },
+      { theme: "COMMERCE & ÉCONOMIE", statut: "EN COURS", titre: "Relais du Château", description: "Rénovation 800000 €, réouverture prévue automne 2025", annee: 2025, montant: 800000 },
+      { theme: "COMMERCE & ÉCONOMIE", statut: "EN COURS", titre: "Reconstruction Netto", description: "Chantier en cours", annee: 2025, montant: 0 },
+      { theme: "COMMERCE & ÉCONOMIE", statut: "EN COURS", titre: "Travaux Carrefour Market", description: "Modernisation du magasin", annee: 2025, montant: 0 },
+      { theme: "COMMERCE & ÉCONOMIE", statut: "PROJET", titre: "Bar de la Paix", description: "Nouvel appel à projet", annee: 2026, montant: 0 },
+      { theme: "MOBILITÉS", statut: "RÉALISÉ", titre: "Terminus Péage ligne 23", description: "Abris, quais, végétalisation", annee: 2025, montant: 0 },
+      { theme: "MOBILITÉS", statut: "RÉALISÉ", titre: "Parking Relais gare des Soieries", description: "Parking opérationnel", annee: 2024, montant: 0 },
+      { theme: "MOBILITÉS", statut: "RÉALISÉ", titre: "M Covoit' Lignes+", description: "+400 usagers inscrits", annee: 2024, montant: 0 },
+      { theme: "MOBILITÉS", statut: "RÉALISÉ", titre: "Gare routière du Péage", description: "Achevée", annee: 2025, montant: 0 },
+      { theme: "MOBILITÉS", statut: "RÉALISÉ", titre: "ZFE – exclusion Crit'Air 3", description: "Mesure effective sur la Métropole", annee: 2025, montant: 0 },
+      { theme: "MOBILITÉS", statut: "RÉALISÉ", titre: "Inversion sens circulation rue République", description: "Expérimentation lancée", annee: 2025, montant: 0 },
+      { theme: "MOBILITÉS", statut: "RÉALISÉ", titre: "Courrier collectif à la Préfète", description: "110 élus mobilisés pour désaturer l'axe Grenoble-Oisans", annee: 2025, montant: 0 },
+      { theme: "MOBILITÉS", statut: "RÉALISÉ", titre: "Enquête circulation rue République", description: "712 contributions + 58 entretiens", annee: 2025, montant: 0 },
+      { theme: "MOBILITÉS", statut: "EN COURS", titre: "Premières pistes cyclables", description: "Secteur Péage + rue A. Briand vers le lycée", annee: 2025, montant: 0 },
+      { theme: "MOBILITÉS", statut: "PROJET", titre: "Itinéraires cyclables Péage-Château", description: "Matérialisation des itinéraires", annee: 0, montant: 0 },
+      { theme: "MOBILITÉS", statut: "PROJET", titre: "Tunnel cyclable RD 1091", description: "Continuité Grenoble-Oisans", annee: 2027, montant: 0 },
+      { theme: "CULTURE & PATRIMOINE", statut: "RÉALISÉ", titre: "Piscine municipale", description: "Réouverture au public", annee: 2021, montant: 0 },
+      { theme: "CULTURE & PATRIMOINE", statut: "RÉALISÉ", titre: "Orgue de l'église Ste-Marie", description: "Restauration après 40 ans de silence, projet sur 13 ans, inauguration", annee: 2025, montant: 0 },
+      { theme: "CULTURE & PATRIMOINE", statut: "RÉALISÉ", titre: "Application Archistoire", description: "Parcours Vizille la rebelle en réalité augmentée", annee: 2025, montant: 0 },
+      { theme: "CULTURE & PATRIMOINE", statut: "RÉALISÉ", titre: "Cinéma municipal", description: "80000 spectateurs en 2024 (+11000 vs 2023)", annee: 2024, montant: 0 },
+      { theme: "CULTURE & PATRIMOINE", statut: "RÉALISÉ", titre: "Festival du film pour enfants", description: "27e édition, 8000 spectateurs en moyenne", annee: 2025, montant: 0 },
+      { theme: "CULTURE & PATRIMOINE", statut: "RÉALISÉ", titre: "Fête de la Science", description: "3e édition, plus de 500 participants dont 327 scolaires", annee: 2024, montant: 0 },
+      { theme: "CULTURE & PATRIMOINE", statut: "RÉALISÉ", titre: "Nouvelle conservatrice du musée de la Révolution française", description: "Sophie Mouton", annee: 2025, montant: 0 },
+      { theme: "CULTURE & PATRIMOINE", statut: "RÉALISÉ", titre: "Domaine de Vizille", description: "848814 visiteurs parc, 78363 musée (record 2024)", annee: 2024, montant: 0 },
+      { theme: "CULTURE & PATRIMOINE", statut: "RÉALISÉ", titre: "Application IntraMuros", description: "Infos pratiques, signalements citoyens", annee: 2025, montant: 0 },
+      { theme: "CULTURE & PATRIMOINE", statut: "PROJET", titre: "Accueil d'élèves européens", description: "Échange Venaria / Sinaia", annee: 2026, montant: 0 },
+      { theme: "CULTURE & PATRIMOINE", statut: "PROJET", titre: "Centenaire de la Gaule Vizilloise", description: "Célébrations sportives et mémorielles", annee: 2026, montant: 0 },
+      { theme: "TOURISME", statut: "RÉALISÉ", titre: "Label Camp de base Belledonne", description: "Obtention du label", annee: 2025, montant: 0 },
+      { theme: "TOURISME", statut: "RÉALISÉ", titre: "Prieuré Notre-Dame", description: "Adhésion Fédération européenne des sites clunisiens", annee: 2023, montant: 0 },
+      { theme: "TOURISME", statut: "RÉALISÉ", titre: "Comité local soutien UNESCO", description: "Comité constitué", annee: 2025, montant: 0 },
+      { theme: "TOURISME", statut: "RÉALISÉ", titre: "Falaise d'escalade", description: "Site sécurisé et purgé", annee: 2025, montant: 0 },
+      { theme: "TOURISME", statut: "RÉALISÉ", titre: "Vente camping Bois de Cornage", description: "Produit de vente 173750 €", annee: 2023, montant: 173750 },
+      { theme: "TOURISME", statut: "EN COURS", titre: "Halte équestre", description: "Installation en cours au pied de la falaise du Château du Roi", annee: 2025, montant: 0 },
+      { theme: "TOURISME", statut: "EN COURS", titre: "Réouverture falaise escalade", description: "Réouverture programmée", annee: 2025, montant: 0 },
+      { theme: "TOURISME", statut: "PROJET", titre: "Candidature UNESCO (sites clunisiens)", description: "Candidature collective", annee: 0, montant: 0 },
+      { theme: "HABITAT & URBANISME", statut: "RÉALISÉ", titre: "OPAH-RU Réno'Vizille", description: "250 façades, subventions jusqu'à 50%", annee: 2023, montant: 0 },
+      { theme: "HABITAT & URBANISME", statut: "RÉALISÉ", titre: "Étude chromatique centre-ville", description: "Palette de couleurs de référence", annee: 2025, montant: 0 },
+      { theme: "HABITAT & URBANISME", statut: "RÉALISÉ", titre: "1ère copropriété en travaux", description: "Charpente et toiture", annee: 2024, montant: 0 },
+      { theme: "HABITAT & URBANISME", statut: "RÉALISÉ", titre: "Lancement concertation centralité vizilloise", description: "Travail conjoint Métropole + Ville", annee: 2024, montant: 0 },
+      { theme: "HABITAT & URBANISME", statut: "EN COURS", titre: "Concertation secteur Tanneries", description: "Cabinet architecte/urbaniste mandaté, vélo triporteur sur le terrain", annee: 2024, montant: 0 },
+      { theme: "HABITAT & URBANISME", statut: "EN COURS", titre: "Forum Vizille se transforme", description: "Après 2 ateliers participatifs", annee: 2025, montant: 0 },
+      { theme: "HABITAT & URBANISME", statut: "PROJET", titre: "Démolition partielle Tanneries (battoirs / moulin)", description: "Recomposition urbaine du secteur", annee: 2026, montant: 0 },
+      { theme: "HABITAT & URBANISME", statut: "PROJET", titre: "Friche Alliance lot 2", description: "Service Local de Solidarité (Département)", annee: 2026, montant: 0 },
+      { theme: "HABITAT & URBANISME", statut: "PROJET", titre: "Friche Alliance lot 3", description: "Centre Médico-Psychologique", annee: 2026, montant: 0 },
+      { theme: "HABITAT & URBANISME", statut: "PROJET", titre: "Friche Alliance lot 4 Les Terrasses de la Romanche", description: "52 logements", annee: 2026, montant: 0 },
+      { theme: "HABITAT & URBANISME", statut: "PROJET", titre: "Fin OPAH-RU", description: "Clôture de l'opération", annee: 2027, montant: 0 },
+      { theme: "SERVICES SOCIAUX & SOLIDARITÉ", statut: "RÉALISÉ", titre: "Ouverture de La Source", description: "Maison France Services + CCAS, 3600 personnes accueillies en 2024 (vs ~1000 en 2022)", annee: 2022, montant: 0 },
+      { theme: "SERVICES SOCIAUX & SOLIDARITÉ", statut: "RÉALISÉ", titre: "L'Escale (Espace Vie Sociale)", description: "258 personnes, 152 familles, ~20 bénévoles", annee: 0, montant: 0 },
+      { theme: "SERVICES SOCIAUX & SOLIDARITÉ", statut: "RÉALISÉ", titre: "Dispositif ENGAJER", description: "Jeunes 16-25 ans en rupture, référente Anaïs Sahy", annee: 2024, montant: 0 },
+      { theme: "SERVICES SOCIAUX & SOLIDARITÉ", statut: "RÉALISÉ", titre: "Pass'Sport", description: "Aide de 50 €/enfant, participation de Vizille", annee: 2024, montant: 0 },
+      { theme: "SERVICES SOCIAUX & SOLIDARITÉ", statut: "RÉALISÉ", titre: "Pass rail", description: "Abonnement TER 49 €/mois pour les moins de 27 ans", annee: 2025, montant: 0 },
+      { theme: "SERVICES SOCIAUX & SOLIDARITÉ", statut: "RÉALISÉ", titre: "CPEF – activité 2024", description: "85 consultations médicales + 91 entretiens d'écoute", annee: 2024, montant: 0 },
+      { theme: "DÉMOCRATIE PARTICIPATIVE", statut: "RÉALISÉ", titre: "Concertation centre-ville / Tanneries", description: "Forums, balades urbaines, ateliers", annee: 2024, montant: 0 },
+      { theme: "DÉMOCRATIE PARTICIPATIVE", statut: "RÉALISÉ", titre: "Forum lancement centralité vizilloise", description: "Réunion publique de lancement", annee: 2024, montant: 0 },
+      { theme: "DÉMOCRATIE PARTICIPATIVE", statut: "RÉALISÉ", titre: "Balade urbaine Tanneries / Tissages", description: "Parcours commenté", annee: 2024, montant: 0 },
+      { theme: "DÉMOCRATIE PARTICIPATIVE", statut: "RÉALISÉ", titre: "Atelier concertation mobilités", description: "Atelier participatif", annee: 2024, montant: 0 },
+      { theme: "DÉMOCRATIE PARTICIPATIVE", statut: "RÉALISÉ", titre: "Enquête circulation rue République", description: "712 contributions + 58 entretiens", annee: 2025, montant: 0 },
+      { theme: "DÉMOCRATIE PARTICIPATIVE", statut: "RÉALISÉ", titre: "Forum restitution Vizille se transforme", description: "Restitution publique", annee: 2025, montant: 0 },
+      { theme: "DÉMOCRATIE PARTICIPATIVE", statut: "RÉALISÉ", titre: "Plateforme metropoleparticipative.fr", description: "Participation en ligne", annee: 2024, montant: 0 },
+      { theme: "ENVIRONNEMENT & TRANSITION ÉCOLOGIQUE", statut: "EN COURS", titre: "Plan de lutte contre les déchets abandonnés (PLDA) et caméras de détection d’objets abandonnés", description: "Convention CITEO signée (5 ans), caméras dédiées aux dépôts sauvages, amendes administratives 250 à 2500 € pour financer la propreté", annee: 2024, montant: 0 },
+      { theme: "ENVIRONNEMENT & TRANSITION ÉCOLOGIQUE", statut: "EN COURS", titre: "Programme de corbeilles de tri sur l’espace public", description: "Objectif de doubler les corbeilles (de 80 à ~160), installation progressive de corbeilles jaunes de tri dans le centre-ville puis l’ensemble de la commune d’ici 2026", annee: 2024, montant: 0 },
+      { theme: "ENVIRONNEMENT & TRANSITION ÉCOLOGIQUE", statut: "PROJET", titre: "Cendriers de rue et cendriers de poche", description: "Convention de 5 ans avec l’éco-organisme Alcome, installation de cendriers de rue début 2025 et distribution gratuite de cendriers de poche (mairie, CCAS, Escale, Jeu de Paume, médiathèque)", annee: 2025, montant: 0 },
+      { theme: "SERVICES SOCIAUX & SOLIDARITÉ", statut: "RÉALISÉ", titre: "Dispositif « Un toit parmi les âges » à la résidence La Romanche", description: "Logement intergénérationnel en partenariat avec DiGi et le CCAS : 2 jeunes logés à faible coût en échange d’animations et de gardiennage les week-ends", annee: 2024, montant: 0 },
+      { theme: "SERVICES SOCIAUX & SOLIDARITÉ", statut: "RÉALISÉ", titre: "Borne musicale « Mélo » à la résidence La Romanche", description: "Borne musicale avec 4000 titres, quizz et jeux, financée à 80 % par le Département (budget 5800 €) pour l’animation des seniors", annee: 2024, montant: 5800 },
+      { theme: "NUMÉRIQUE & MODERNISATION", statut: "RÉALISÉ", titre: "Label « Territoire numérique libre » – grade 3", description: "Usage avancé de logiciels libres pour la gestion du courrier, l’archivage, les visioconférences et certains services (police municipale, informatique), permettant de réduire les coûts de fonctionnement", annee: 2024, montant: 0 },
+      { theme: "ENVIRONNEMENT & TRANSITION ÉCOLOGIQUE", statut: "EN COURS", titre: "Prêt gratuit de broyeurs de végétaux", description: "Prêt d’un broyeur de végétaux par Grenoble-Alpes Métropole, à réserver en ligne et à retirer aux services techniques de Vizille pour valoriser les déchets verts au jardin.", annee: 2024, montant: 0 },
+      { theme: "ENVIRONNEMENT & TRANSITION ÉCOLOGIQUE", statut: "EN COURS", titre: "Aide au solaire thermique", description: "Aide financière de la Métropole (jusqu’à 2000 €) pour l’installation d’un chauffe-eau solaire, cumulable avec MaPrimeRénov et les CEE.", annee: 2024, montant: 0 },
+      { theme: "SERVICES SOCIAUX & SOLIDARITÉ", statut: "EN COURS", titre: "Ateliers théâtre à la résidence La Romanche", description: "Atelier hebdomadaire avec 11 résidents animé par une metteuse en scène, 29 séances prévues et représentation en juin 2025.", annee: 2024, montant: 0 },
+      { theme: "MOBILITÉS", statut: "RÉALISÉ", titre: "Lancement du réseau M réso sur le territoire vizillois", description: "Nouvelle organisation des transports en commun de la métropole (SMMAG) : continuité tarifaire et renforcement des dessertes, notamment dans le sud métropolitain (Vif, Vizille, Varces…).", annee: 2024, montant: 0 },
+      { theme: "COMMERCE & ÉCONOMIE", statut: "RÉALISÉ", titre: "Nouvelles permanences « Commerces » de la Métropole", description: "Permanences mensuelles pour informer et accompagner artisans, commerçants et métiers de service sur les démarches obligatoires et les aides disponibles.", annee: 2024, montant: 0 },
+      { theme: "COMMERCE & ÉCONOMIE", statut: "RÉALISÉ", titre: "Nouveau local pour la Petite Ressourcerie", description: "La Petite Ressourcerie déménage au 57 rue Aristide Briand, avec élargissement des horaires d’ouverture et développement d’ateliers créatifs.", annee: 2024, montant: 0 },
+      { theme: "CULTURE & PATRIMOINE", statut: "RÉALISÉ", titre: "80e anniversaire de la Libération de Vizille", description: "Commémoration du 22 août 1944 : cérémonies officielles, expositions, projection de film, animations musicales et bal de la Libération sur la place du Château.", annee: 2024, montant: 0 }
+    ];
 
-    <div id="dashboard-container">
+    // ----------------------------------------------------
+    // BLOC 2/2 : LA LOGIQUE (Vient de script.js)
+    // ----------------------------------------------------
+    document.addEventListener('DOMContentLoaded', () => {
         
-        <header>
-            <h1>Vizille en Mouvement : Bilan d'Action 2025-2030</h1>
-            <p>Filtrez par statut, thème ou année pour explorer les réalisations de la municipalité.</p>
-        </header>
+        const cardsContainer = document.getElementById('results-container'); 
+        const filterStatut = document.getElementById('status-navigation'); 
+        const filterTheme = document.getElementById('theme-filter');       
+        const filterAnnee = document.getElementById('annee-filter');       
+        const countsContainer = document.getElementById('counts'); 
+        
+        // La vérification vizilleData est maintenant inutile car les données sont dans ce même bloc.
+        
+        function populateFilter(selectElement, values) {
+            selectElement.innerHTML = '<option value="">Tous</option>';
+            const sortedValues = Array.from(values).sort((a, b) => {
+                if (selectElement.id === 'annee-filter') { return b - a; }
+                return a.localeCompare(b);
+            });
+            sortedValues.forEach(value => {
+                const option = document.createElement('option');
+                option.value = value;
+                option.textContent = value.toUpperCase();
+                selectElement.appendChild(option);
+            });
+        }
+        
+        function getStatutClass(statut) {
+            switch (statut) {
+                case 'Achevé': case 'RÉALISÉ': return 'statut-acheve';
+                case 'En cours': case 'EN COURS': return 'statut-en-cours';
+                case 'Prévu': case 'PROJET': case 'À FAIRE': return 'statut-prevu';
+                default: return 'statut-inconnu';
+            }
+        }
 
-        <main>
-            <div id="status-navigation">
-                <button data-status="all" class="status-btn active-status-btn">🗂️ Tout Afficher</button>
-                <button data-status="Achevé" class="status-btn">✅ Réalisations Terminées</button>
-                <button data-status="En cours" class="status-btn">🚧 Réalisations En Cours</button>
-                <button data-status="Prévu" class="status-btn">🎯 Projets Planifiés</button>
-            </div>
+        function renderProjets(projets) {
+            cardsContainer.innerHTML = ''; 
+            let montantTotal = 0;
+
+            if (projets.length === 0) {
+                cardsContainer.innerHTML = '<p class="no-results">Aucun projet ne correspond à votre sélection de filtres.</p>';
+            } else {
+                projets.forEach(projet => {
+                    const card = document.createElement('div');
+                    card.classList.add('card', getStatutClass(projet.statut));
+                    
+                    const montantFormatte = (projet.montant > 0) 
+                        ? `Montant : ${new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 }).format(projet.montant)}`
+                        : 'Montant : (Non chiffré)';
+                    
+                    montantTotal += projet.montant || 0;
+
+                    card.innerHTML = `
+                        <div class="card-header">
+                            <span class="card-theme">${projet.theme.toUpperCase()}</span>
+                            <span class="card-annee">${projet.annee}</span>
+                        </div>
+                        <h3 class="card-title">${projet.titre}</h3>
+                        <p class="card-description">${projet.description}</p>
+                        <div class="card-footer">
+                            <span class="card-statut ${getStatutClass(projet.statut)}">${projet.statut.toUpperCase()}</span>
+                            <span class="card-montant">${montantFormatte}</span>
+                        </div>
+                    `;
+                    cardsContainer.appendChild(card);
+                });
+            }
             
-            <div id="secondary-filters">
-                <select id="theme-filter" aria-label="Filtrer par Thème">
-                    <option value="all">Tous les Thèmes</option>
-                </select>
-                 <select id="annee-filter" aria-label="Filtrer par Année">
-                    <option value="all">Toutes les Années</option>
-                </select>
-                <div id="counts"></div>
-            </div>
+            countsContainer.innerHTML = `
+                <p>Projets Affichés : <span class="count-value">${projets.length}</span></p>
+                <p>Montant Total : <span class="count-value">${new Intl.NumberFormat('fr-FR', { style: 'currency', currency: 'EUR', minimumFractionDigits: 0 }).format(montantTotal)}</span></p>
+            `;
+        }
+        
+        function filterProjets() {
+            const selectedTheme = filterTheme.value;
+            const selectedAnnee = filterAnnee.value;
+            const activeStatusButton = document.querySelector('#status-navigation .status-btn.active-status-btn');
+            const selectedStatut = activeStatusButton ? activeStatusButton.dataset.status : 'all';
 
-            <div id="results-container">
-                </div>
-        </main>
+            const projetsFiltres = vizilleData.filter(projet => {
+                const statutMatch = selectedStatut === 'all' || getStatutClass(projet.statut).includes(selectedStatut.toLowerCase().replace(' ', '-'));
+                const themeMatch = !selectedTheme || projet.theme.toUpperCase() === selectedTheme.toUpperCase();
+                const anneeMatch = !selectedAnnee || projet.annee.toString() === selectedAnnee;
+                
+                return statutMatch && themeMatch && anneeMatch;
+            });
 
-    </div>
+            renderProjets(projetsFiltres);
+        }
+        
+        filterStatut.addEventListener('click', (event) => {
+            if (event.target.classList.contains('status-btn')) {
+                document.querySelectorAll('#status-navigation .status-btn').forEach(btn => {
+                    btn.classList.remove('active-status-btn');
+                });
+                event.target.classList.add('active-status-btn');
+                filterProjets();
+            }
+        });
 
-    <script src="data.js"></script>
-    <script src="script.js"></script>
-    
+        function initApp() {
+            const uniqueThemes = new Set(vizilleData.map(p => p.theme).filter(t => t));
+            const uniqueAnnees = new Set(vizilleData.map(p => p.annee).filter(a => a));
+            
+            populateFilter(filterTheme, uniqueThemes);
+            populateFilter(filterAnnee, uniqueAnnees);
+
+            filterTheme.addEventListener('change', filterProjets);
+            filterAnnee.addEventListener('change', filterProjets);
+
+            renderProjets(vizilleData);
+        }
+
+        initApp();
+    });
+    </script>
 </body>
 </html>
