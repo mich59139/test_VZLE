@@ -1,4 +1,5 @@
-// data.js - VEUILLEZ REMPLACER TOUT LE CONTENU DE VOTRE FICHIER PAR CECI
+// data.js - base complète Vizille en Mouvement
+
 const vizilleData = [
   { theme: "SANTÉ", statut: "RÉALISÉ", titre: "Réouverture du centre d'imagerie médicale", description: "157 rue Colonel Manhès, matériel dernière génération", annee: 2025, montant: 0 },
   { theme: "SANTÉ", statut: "RÉALISÉ", titre: "Plan canicule annuel", description: "Appels quotidiens personnes isolées, piscine gratuite en vigilance rouge", annee: 2020, montant: 0 },
