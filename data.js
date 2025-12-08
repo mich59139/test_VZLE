@@ -1,4 +1,8 @@
-// data.js - base complète Vizille en Mouvement
+// data.js
+// This file contains the full dataset for Vizille en Mouvement. Each entry
+// represents a project with its theme, status, title, description, year,
+// and budget (montant). The array is exported globally so script.js can
+// access it directly when loaded in the HTML.
 
 const vizilleData = [
   { theme: "SANTÉ", statut: "RÉALISÉ", titre: "Réouverture du centre d'imagerie médicale", description: "157 rue Colonel Manhès, matériel dernière génération", annee: 2025, montant: 0 },
@@ -128,4 +132,9 @@ const vizilleData = [
   { theme: "COMMERCE & ÉCONOMIE", statut: "RÉALISÉ", titre: "Nouvelles permanences « Commerces » de la Métropole", description: "Permanences mensuelles pour informer et accompagner artisans, commerçants et métiers de service sur les démarches obligatoires et les aides disponibles.", annee: 2024, montant: 0 },
   { theme: "COMMERCE & ÉCONOMIE", statut: "RÉALISÉ", titre: "Nouveau local pour la Petite Ressourcerie", description: "La Petite Ressourcerie déménage au 57 rue Aristide Briand, avec élargissement des horaires d’ouverture et développement d’ateliers créatifs.", annee: 2024, montant: 0 },
   { theme: "CULTURE & PATRIMOINE", statut: "RÉALISÉ", titre: "80e anniversaire de la Libération de Vizille", description: "Commémoration du 22 août 1944 : cérémonies officielles, expositions, projection de film, animations musicales et bal de la Libération sur la place du Château.", annee: 2024, montant: 0 }
+  ,{ theme: "HABITAT & URBANISME", statut: "EN COURS", titre: "Projet de territoire – secteur Cros / Maison de l'enfant", description: "Dernier grand tènement de 5 hectares au centre-ville, foncier majoritairement maîtrisé par la Ville et le Logement Populaire Vizillois ; projet à définir avec la population (logements, équipements, mobilités douces, espaces publics).", annee: 2024, montant: 0 }
+  ,{ theme: "DÉMOCRATIE PARTICIPATIVE", statut: "PROJET", titre: "Aménagement et végétalisation participatifs de la place du Jeu de Paume", description: "Aménagement et végétalisation de la place du Jeu de Paume devant le cinéma, projet appelé à se réaliser avec la participation des habitants.", annee: 2024, montant: 0 }
+  ,{ theme: "SÉCURITÉ & TRANQUILLITÉ PUBLIQUE", statut: "EN COURS", titre: "Projet de nouvelle caserne de gendarmerie à Vizille", description: "Choix du terrain de l’actuel stade de rugby pour maintenir une gendarmerie de proximité ; contraintes de risques et d’environnement, avis favorable du ministère de l’Intérieur, engagement à mener la concertation avec les élus et la population.", annee: 2023, montant: 0 }
+  ,{ theme: "INFRASTRUCTURES & ÉQUIPEMENTS PUBLICS", statut: "EN COURS", titre: "Projet de nouveau stade de rugby derrière le hameau des Allas", description: "Relocalisation du stade de rugby sur un tènement identifié par le SCOT comme espace de développement, lancement d’une procédure de « déclaration de projet » pour acter l’utilité publique, concertation annoncée avec le club de rugby et le mouvement sportif vizillois.", annee: 2023, montant: 0 }
+  ,{ theme: "CULTURE & PATRIMOINE", statut: "EN COURS", titre: "Participation au Street Art Fest Grenoble-Alpes – fresques murales", description: "Accueil de fresques de street-art sur le mur de l’école Joliot-Curie puis sur la façade de l’ancienne annexe mairie–poste du Péage, dans le cadre du Street Art Fest Grenoble-Alpes.", annee: 2022, montant: 0 }
 ];
